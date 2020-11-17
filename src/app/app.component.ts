@@ -19,6 +19,7 @@ export class AppComponent {
   ngOnInit() {
     console.log('angular init')
     this.canvas = new fabric.Canvas('c',);
+
   }
   ngAfterViewInit() {
     this.canvas.on('selection:created', (e) => {
@@ -33,7 +34,9 @@ export class AppComponent {
   }
   respond() {
     console.log('angular')
-    window.parent.postMessage("To page code", "https://sneakit-1502.web.app/");
+    window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/")
+    console.log('message', window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/"))
+    console.log('message 2', window.parent.postMessage("To page code", "https://sneakit-1502.web.app/"))
   }
   // add rectangle
   addRect() {
