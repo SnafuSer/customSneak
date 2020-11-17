@@ -35,7 +35,7 @@ export class AppComponent {
       id: "1",
       svg: "svg"
     }
-    window.parent.postMessage(data, "https://sneakit-1502.web.app/");
+    window.parent.postMessage(data, "*");
   }
   // add rectangle
   addRect() {
