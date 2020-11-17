@@ -33,7 +33,7 @@ export class AppComponent {
   }
   respond() {
     console.log('angular')
-    window.postMessage("To page code", "https://sneakit-1502.web.app/");
+    window.parent.postMessage("To page code", "https://sneakit-1502.web.app/");
   }
   // add rectangle
   addRect() {
