@@ -30,6 +30,9 @@ export class AppComponent {
       this.onObjectUpdated()
     });
   }
+  respond() {
+    window.parent.postMessage("To page code", "http://mysite.com");
+  }
   // add rectangle
   addRect() {
     var rect = new fabric.Rect({
