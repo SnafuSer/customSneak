@@ -17,9 +17,7 @@ export class AppComponent {
   public objType: any;
   public node: any;
   ngOnInit() {
-    console.log('angular init')
     this.canvas = new fabric.Canvas('c',);
-
   }
   ngAfterViewInit() {
     this.canvas.on('selection:created', (e) => {
@@ -33,23 +31,11 @@ export class AppComponent {
     });
   }
   respond() {
-    console.log('angular')
     var data = {
       id: "1",
       svg: "svg"
     }
-    window.parent.postMessage(data, "*");
-    console.log('message 1', window.parent.window.postMessage("To page code", "*"))
-    console.log('message 2', window.parent.window.postMessage(data, "*"))
-    console.log('message 3', window.parent.postMessage(data, "*"))
-    console.log('message 4', window.postMessage(data, "*"))
-    
-    // var iframe = document.getElementById('useriframe');
-    // if (iframe == null) return;
-    // var iWindow = (<HTMLIFrameElement>iframe).contentWindow;
-    
-    // iWindow.postMessage({"for":"user","data":"anything"}, 'https://sneakit-1502.web.app/')
-    // console.log('message 3', iWindow.postMessage({"for":"user","data":"anything"}, 'https://sneakit-1502.web.app/'))
+    window.parent.postMessage(data, "https://sneakit-1502.web.app/");
   }
   // add rectangle
   addRect() {
