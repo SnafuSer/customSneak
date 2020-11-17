@@ -34,9 +34,15 @@ export class AppComponent {
   }
   respond() {
     console.log('angular')
-    // window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/")
-    // console.log('message', window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/"))
-    // console.log('message 2', window.parent.postMessage("To page code", "https://sneakit-1502.web.app/"))
+    var data = {
+      id: "1",
+      svg: "svg"
+    }
+    window.parent.postMessage(data, "*");
+    console.log('message 1', window.parent.window.postMessage("To page code", "*"))
+    console.log('message 2', window.parent.window.postMessage(data, "*"))
+    console.log('message 3', window.parent.postMessage(data, "*"))
+    console.log('message 4', window.postMessage(data, "*"))
     
     // var iframe = document.getElementById('useriframe');
     // if (iframe == null) return;
