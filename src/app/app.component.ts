@@ -31,7 +31,8 @@ export class AppComponent {
     });
   }
   respond() {
-    window.parent.postMessage("To page code", "http://mysite.com");
+    console.log('angular')
+    window.postMessage("To page code", "http://mysite.com");
   }
   // add rectangle
   addRect() {
