@@ -1,0 +1,48 @@
+<div class="popup">
+  <div class="header-container">
+    <h2>Import a design</h2>
+    <a class="close" href="#">&times;</a>
+  </div>
+  <div class="container-modal">
+    <div class="import-zone">
+      <div class="accept">
+               <p class="warning">
+En important une image, vous confirmez qu’elle ne va ni à l’encontre de la loi ni des droits de tiers. Vous pouvez <a href="">ici</a> en savoir davantage sur les motifs de refus de SlashAll.</p>
+      <div class="toggle-contain" (click)="onClick()">
+        <div id="toggle">
+          <div class="inner-container">
+            <div class="toggle">
+              <p>Yes</p>
+            </div>
+            <div class="toggle">
+              <p>No</p>
+            </div>
+          </div>
+          <div class="inner-container" id='toggle-container'>
+            <div class="toggle">
+              <p>Yes</p>
+            </div>
+            <div class="toggle">
+              <p>No</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+      </div>
+
+      <label id="largeFile" for="file">
+        <input type="file" (change)="loadFile($event)" id="file" />
+        Import a file
+      </label>
+
+    </div>
+    <div class="content-imported">
+      <img id="output"/>
+    </div>
+  </div>
+  <div class="container-button">
+    <button (click)="uploadImage()">import</button>
+    <!-- <button (click)="importSVG()">svg</button>
+    <button (click)="importJson()">Json</button> -->
+  </div>
+</div>

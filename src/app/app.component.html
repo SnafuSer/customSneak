@@ -1,0 +1,54 @@
+<div class="container-app">
+  
+    <div class="controls">
+      
+      <a id="add" class="button" (click)="addText()">Text</a>
+      <a class="button" (click)="openModalLib()">Design</a>
+      <a class="button" (click)="openModalImport()">Import</a>
+    </div>
+    <canvas id="c" width="500" height="500" style="border:3px solid #131313"></canvas>
+    <div class="item-selected">
+      <div id='i-text' class="item-panel">
+        <div id="general-controls" *ngIf="generalDisplay">
+          <div id="text-controls-additional">
+            <div id="color-select" (click)="clickColor()" class="color-select">
+              <div id="color-selected" class="color-item" [ngStyle]="{'background-color': activeColor}"></div>
+              <span class="caption">Color</span>
+            </div>
+            <input type='checkbox' [(ngModel)]="isBold" (ngModelChange)="textTransform()" name='fonttype' id="text-cmd-bold">
+            <label class="text-control" for="text-cmd-bold">
+              <b>B</b>
+            </label>
+            <input type='checkbox' [(ngModel)]="isItalic" (ngModelChange)="textTransform()" name='fonttype' id="text-cmd-italic">
+            <label class="text-control" for="text-cmd-italic">
+              <i>I</i>
+            </label>
+            <input type='checkbox' name='fonttype' id="text-cmd-underline">
+            <label class="text-control" for="text-cmd-underline">
+              <span style="text-decoration:underline">U</span>
+            </label>
+          </div>
+          <label for="font-family" style="display:inline-block">Font family:</label>
+          <select id="font-family">
+            <option value="arial">Arial</option>
+            <option value="helvetica" selected>Helvetica</option>
+            <option value="comic sans ms">Comic Sans MS</option>
+          </select>
+        </div>
+        <div id="color-controls" *ngIf="colorDisplay">
+          <div class="header-control">
+            <span (click)="back()"> < </span> <p>Choose a coulor</p>
+          </div>  
+          <div id="color-list">
+            <div *ngFor="let item of colorList" class="color-item" [id]="item" [ngClass]="{active: activeColor === '#'+item}" [ngStyle]="{'background-color': '#'+item}" (click)="changeColor(item)"></div>
+          </div>
+        </div>
+        <div id='image' *ngIf="imgDisplay">
+            <div (click)="bringForward()">En avant</div>
+            <div (click)="bringBackward()">En arriere</div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <!-- <button (click)="exportToSvg()" class="export-btn">Download</button>
+    <button (click)="sendMessage()" class="export-btn">Message</button> -->
