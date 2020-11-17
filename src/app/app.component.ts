@@ -34,9 +34,16 @@ export class AppComponent {
   }
   respond() {
     console.log('angular')
-    window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/")
-    console.log('message', window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/"))
-    console.log('message 2', window.parent.postMessage("To page code", "https://sneakit-1502.web.app/"))
+    // window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/")
+    // console.log('message', window.parent.window.postMessage("To page code", "https://sneakit-1502.web.app/"))
+    // console.log('message 2', window.parent.postMessage("To page code", "https://sneakit-1502.web.app/"))
+    
+    // var iframe = document.getElementById('useriframe');
+    // if (iframe == null) return;
+    // var iWindow = (<HTMLIFrameElement>iframe).contentWindow;
+    
+    // iWindow.postMessage({"for":"user","data":"anything"}, 'https://sneakit-1502.web.app/')
+    // console.log('message 3', iWindow.postMessage({"for":"user","data":"anything"}, 'https://sneakit-1502.web.app/'))
   }
   // add rectangle
   addRect() {
@@ -88,6 +95,18 @@ export class AppComponent {
   //   };
   //   reader.readAsDataURL(file);
   // }
+  exportToSvg() {
+    var exportSvg = this.canvas.toSVG();
+    localStorage.setItem('svg', exportSvg);
+    // var json_data = JSON.stringify(canvas.toDatalessJSON()); 
+    // console.log(json_data);
+    // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(json_data);
+    // document.querySelector('#list').innerHTML = '<a href="" id="downloadAnchorElem"></a>';
+    // var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    // dlAnchorElem.setAttribute("href",     dataStr     );
+    // dlAnchorElem.setAttribute("download", "scene.json");
+    // dlAnchorElem.click();
+  }
   // use modal images
   addStockImg(e) {
     fabric.Image.fromURL(e, (img) => {
@@ -128,9 +147,11 @@ export class AppComponent {
   }
   onObjectCleared() {
     this.clear()
+    this.exportToSvg()
   }
   onObjectUpdated() {
     this.clear()
+    this.exportToSvg()
     // check if type is a property of active element
     this.objType = (this.canvas.getActiveObject().type ? this.canvas.getActiveObject().type : "");
     this.switchDisplay(this.objType)
