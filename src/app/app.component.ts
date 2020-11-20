@@ -17,6 +17,7 @@ export class AppComponent {
   public objType: any;
   public node: any;
   ngOnInit() {
+    console.log('init')
     this.canvas = new fabric.Canvas('c',);
   }
   ngAfterViewInit() {
