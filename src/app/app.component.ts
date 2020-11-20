@@ -33,8 +33,8 @@ export class AppComponent {
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
-    console.log('getEvnt')
-    this.receiveMessage(event);
+    console.log('getEvnt', event)
+    if(event.data.pay)this.receiveMessage(event);
   }
   receiveMessage(event) {
     console.log('active function')
