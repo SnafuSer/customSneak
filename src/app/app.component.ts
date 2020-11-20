@@ -30,10 +30,19 @@ export class AppComponent {
       this.onObjectUpdated()
     });
   }
+  @HostListener('window:message', ['$event'])
+  onMessage(event) {
+    console.log('getEvnt')
+    this.receiveMessage(event);
+  }
+  receiveMessage(event) {
+    this.respond()
+  }
   respond() {
     var data = {
       id: "1",
-      svg: "svg"
+      svg: "svg",
+      price: "40"
     }
     window.parent.postMessage(data, "*");
   }
