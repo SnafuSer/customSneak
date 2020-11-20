@@ -36,9 +36,11 @@ export class AppComponent {
     this.receiveMessage(event);
   }
   receiveMessage(event) {
+    console.log('active function')
     this.respond()
   }
   respond() {
+    console.log('sendEvnt')
     var data = {
       id: "1",
       svg: "svg",
