@@ -44,14 +44,19 @@ export class AppComponent {
     console.log('active function')
     this.respond()
   }
+  public url: any
   respond() {
     console.log('sendEvnt')
-    var data = {
-      id: "1",
-      svg: this.exportToSvg(),
-      price: "40"
-    }
-    window.parent.postMessage(data, "*");
+    this.exportToSvg()
+    setTimeout(() => {
+      var data = {
+        id: "1",
+        svg: this.url,
+        price: "40"
+      }
+      console.log('data', data)
+      window.parent.postMessage(data, "*");
+    }, 100);
   }
   // add rectangle
   addRect() {
@@ -115,8 +120,8 @@ export class AppComponent {
     // dlAnchorElem.setAttribute("download", "scene.json");
     // dlAnchorElem.click();
     var svgBlob = new Blob([exportSvg], {type:"image/svg+xml;charset=utf-8"});
-    // var svgUrl = URL.createObjectURL(svgBlob);
-    return URL.createObjectURL(svgBlob);
+    this.url = URL.createObjectURL(svgBlob);
+    // return URL.createObjectURL(svgBlob);
     // console.log('azert', svgUrl)
     // console.log('aze', svgBlob)
     // var downloadLink = document.createElement("a");
