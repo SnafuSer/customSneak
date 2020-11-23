@@ -390,3 +390,9 @@
       visibility: visible
     
   }
+
+  .imgColor {
+    &.active {
+      color: red;
+    }
+  }

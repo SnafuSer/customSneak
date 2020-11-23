@@ -3,6 +3,7 @@ import { fabric } from 'fabric';
 import { ModalLibDialog } from "../components/modals/modalLib/modalLib";
 import { ModalImportDialog } from "../components/modals/modalImport/modalImport";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AssetsLibService } from '../services/assetsLib.service'
 
 @Component({
   selector: 'app-root',
@@ -11,14 +12,17 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class AppComponent {
   constructor(
-    private dialog: MatDialog,) {
+    private dialog: MatDialog,
+    private assetsLib: AssetsLibService,) {
   }
   public canvas: any;
+  public imgLib: any;
+  public activeObject: any;
   public objType: any;
   public node: any;
   ngOnInit() {
-    console.log('init')
     this.canvas = new fabric.Canvas('c',);
+    this.canvas.preserveObjectStacking = false;
   }
   ngAfterViewInit() {
     this.canvas.on('selection:created', (e) => {
@@ -44,7 +48,7 @@ export class AppComponent {
     console.log('sendEvnt')
     var data = {
       id: "1",
-      svg: "svg",
+      svg: this.exportToSvg(),
       price: "40"
     }
     window.parent.postMessage(data, "*");
@@ -110,17 +114,28 @@ export class AppComponent {
     // dlAnchorElem.setAttribute("href",     dataStr     );
     // dlAnchorElem.setAttribute("download", "scene.json");
     // dlAnchorElem.click();
+    var svgBlob = new Blob([exportSvg], {type:"image/svg+xml;charset=utf-8"});
+    // var svgUrl = URL.createObjectURL(svgBlob);
+    return URL.createObjectURL(svgBlob);
+    // console.log('azert', svgUrl)
+    // console.log('aze', svgBlob)
+    // var downloadLink = document.createElement("a");
+    // downloadLink.href = svgUrl;
+    // downloadLink.download = "newesttree.svg";
+    // document.body.appendChild(downloadLink);
+    // downloadLink.click();
+    // document.body.removeChild(downloadLink);
   }
   // use modal images
   addStockImg(e) {
-    fabric.Image.fromURL(e, (img) => {
+    fabric.Image.fromURL(e.img, (img) => {
       img.scaleToWidth(300);
       var oImg = img.set({
         left: 0,
         top: 0,
         angle: 0,
+        id: e.item.id,
       });
-
       this.canvas.add(oImg).renderAll();
     });
   }
@@ -137,7 +152,7 @@ export class AppComponent {
         oImg = img.set({
           left: 0, 
           top: 0, 
-          angle: 0, 
+          angle: 0
         })
         this.canvas.add(oImg).renderAll();
       });
@@ -147,7 +162,11 @@ export class AppComponent {
   onObjectSelected() {
     // check if type is a property of active element
     this.objType = (this.canvas.getActiveObject().type ? this.canvas.getActiveObject().type : "");
+    this.activeObject = this.canvas.getActiveObject()
     this.switchDisplay(this.objType)
+  }
+  getImgById(id) {
+    this.imgLib = this.assetsLib.getById(id)
   }
   onObjectCleared() {
     this.clear()
@@ -156,6 +175,7 @@ export class AppComponent {
   onObjectUpdated() {
     this.clear()
     this.exportToSvg()
+    this.activeObject = this.canvas.getActiveObject()
     // check if type is a property of active element
     this.objType = (this.canvas.getActiveObject().type ? this.canvas.getActiveObject().type : "");
     this.switchDisplay(this.objType)
@@ -204,6 +224,7 @@ export class AppComponent {
         break;
       case 'image':
         this.imgDisplay = true
+        this.getImgById(this.activeObject.id)
         break;
       case 'rect':
         this.imgDisplay = true
@@ -215,10 +236,16 @@ export class AppComponent {
   bringForward() {
     let el = this.canvas.getActiveObject()
     this.canvas.bringForward(el)
+    setTimeout(() => {
+      this.canvas.renderAll(); 
+    }, 150);
   }
   bringBackward() {
     let el = this.canvas.getActiveObject()
     this.canvas.sendBackwards(el)
+    setTimeout(() => {
+      this.canvas.renderAll(); 
+    }, 150);
   }
   changeColor(color) {
     var elements = document.getElementsByClassName("color-item")
@@ -230,7 +257,21 @@ export class AppComponent {
     var node = document.getElementById(color);
     node.classList.add("active")
   }
-
+  changeColorImg(color) {
+    console.log('img', color)
+    let oImg
+    this.canvas.getActiveObject().setSrc(color.img, (img) => {
+      img.scaleToWidth(300);
+      oImg = img.set({
+        color: color.color
+      })
+      this.canvas.add(oImg).renderAll();
+    });
+    // this.canvas.getActiveObject().setSrc(color.img);
+    // setTimeout(() => {
+    //   this.canvas.renderAll(); 
+    // }, 50);
+  }
   openModalLib() {
 
     const dialogRef = this.dialog.open(ModalLibDialog, {
@@ -242,6 +283,7 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.addStockImg(result)
+      console.log('result', result)
     });
 
   }

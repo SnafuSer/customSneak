@@ -5,20 +5,21 @@
     </div>
     <div class="container-modal">
       <div class="category-list">
-        <div class="category-item" (click)="changeImgSrc(imgSrc)">
+        <div class="category-item" (click)="getCurrentCategory('photo')">
           <span>Images</span>
         </div>
-        <div class="category-item" (click)="changeImgSrc(illuSrc)">
+        <div class="category-item" (click)="getCurrentCategory('illu')">
           <span>Illustrations</span>
         </div>
-        <div class="category-item" (click)="changeImgSrc(girlSrc)">
+        <div class="category-item" (click)="getCurrentCategory('girly')">
           <span>Girly</span>
         </div>
       </div>
       <div class="content">
         <ul class="assets" id="list">
             <li class="item-modal" *ngFor="let item of currentCat">
-                <img class="img-stock" [src]="item.img" (click)="addStockImg($event)" alt="image asset" width="400" height="500"/>
+                <img class="img-stock" [src]="item.img" (click)="addStockImg($event, item)" alt="image asset" width="400" height="500"/>
+                <div *ngIf="item.colors">multi</div>
                 <div class="infos-item">
                     <span class="name">{{ item.name }}</span>
                     <span class="price">{{ item.price }}</span>

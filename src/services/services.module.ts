@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // ***** Services *****
 import { AuthGuardService } from '../services/auth-guard.service';
 import { AuthService } from '../services/auth.service';
+import { AssetsLibService } from '../services/assetsLib.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthService } from '../services/auth.service';
   ],
   providers: [
     AuthGuardService,
-    AuthService
+    AuthService,
+    AssetsLibService
   ],
   bootstrap: [],
   entryComponents: [],

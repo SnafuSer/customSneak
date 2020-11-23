@@ -46,9 +46,12 @@
         <div id='image' *ngIf="imgDisplay">
             <div (click)="bringForward()">En avant</div>
             <div (click)="bringBackward()">En arriere</div>
+            <div id="color-list">
+              <div *ngFor="let item of imgLib?.colors" class="color-item" [ngClass]="{active: activeObject.color === item.color}" [ngStyle]="{'background-color': '#'+item.color}" (click)="changeColorImg(item)"></div>
+            </div>
         </div>
       </div>
     </div>
   </div>  
-  <!-- <button (click)="exportToSvg()" class="export-btn">Download</button> -->
+  <button (click)="exportToSvg()" class="export-btn">Download</button>
     <button (click)="respond()" class="export-btn">Message</button>
