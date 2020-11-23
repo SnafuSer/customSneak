@@ -111,6 +111,7 @@ export class AppComponent {
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
     localStorage.setItem('svg', exportSvg);
+    this.url = exportSvg
     // var json_data = JSON.stringify(canvas.toDatalessJSON()); 
     // console.log(json_data);
     // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(json_data);
@@ -119,14 +120,15 @@ export class AppComponent {
     // dlAnchorElem.setAttribute("href",     dataStr     );
     // dlAnchorElem.setAttribute("download", "scene.json");
     // dlAnchorElem.click();
-    var svgBlob = new Blob([exportSvg], {type:"image/svg+xml;charset=utf-8"});
-    this.url = URL.createObjectURL(svgBlob);
+    // var svgBlob = new Blob([exportSvg], {type:"image/svg+xml;charset=utf-8"});
+    // this.url = URL.createObjectURL(svgBlob);
     // return URL.createObjectURL(svgBlob);
     // console.log('azert', svgUrl)
     // console.log('aze', svgBlob)
     // var downloadLink = document.createElement("a");
-    // downloadLink.href = svgUrl;
+    // downloadLink.href = this.url;
     // downloadLink.download = "newesttree.svg";
+    // console.log('downloadLink', downloadLink)
     // document.body.appendChild(downloadLink);
     // downloadLink.click();
     // document.body.removeChild(downloadLink);
