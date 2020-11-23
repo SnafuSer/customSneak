@@ -111,8 +111,8 @@ export class AppComponent {
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
     localStorage.setItem('svg', exportSvg);
-    this.url = exportSvg
-    // var json_data = JSON.stringify(canvas.toDatalessJSON()); 
+    var json_data = JSON.stringify(this.canvas.toDatalessJSON()); 
+    this.url = json_data
     // console.log(json_data);
     // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(json_data);
     // document.querySelector('#list').innerHTML = '<a href="" id="downloadAnchorElem"></a>';
