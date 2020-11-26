@@ -5,6 +5,11 @@ import { ModalImportDialog } from "../components/modals/modalImport/modalImport"
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AssetsLibService } from '../services/assetsLib.service'
 
+export interface SideShoes {
+  img: string;
+  svg: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,9 +25,28 @@ export class AppComponent {
   public activeObject: any;
   public objType: any;
   public node: any;
+  public listSide: Array<SideShoes>;
   ngOnInit() {
     this.canvas = new fabric.Canvas('c',);
     this.canvas.preserveObjectStacking = false;
+    this.listSide = [
+      {
+        img: "./assets/shoes/af1out.png",
+        svg: ""
+      },
+      {
+        img: "./assets/shoes/af1in.png",
+        svg: ""
+      },
+      {
+        img: "./assets/shoes/af1top.png",
+        svg: ""
+      },
+      {
+        img: "./assets/shoes/af1back.png",
+        svg: ""
+      }
+    ]
   }
   ngAfterViewInit() {
     this.canvas.on('selection:created', (e) => {

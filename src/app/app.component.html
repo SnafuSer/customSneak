@@ -1,12 +1,37 @@
 <div class="container-app">
-  
-    <div class="controls">
-      
-      <a id="add" class="button" (click)="addText()">Texte</a>
-      <a class="button" (click)="openModalLib()">Design</a>
-      <a class="button" (click)="openModalImport()">Import</a>
+    <div class="container-models">
+      <div class="controls">
+        <div id="add" class="button" (click)="addText()">
+          <img src="./assets/icons/text.svg" alt="">
+          <span>Texte</span>
+        </div>
+        <div class="button" (click)="openModalLib()">
+          <img src="./assets/icons/image.svg" alt="">
+          <span>Design</span>
+        </div>
+        <div class="button" (click)="openModalImport()">
+          <img src="./assets/icons/upload.svg" alt="">
+          <span>Import</span>
+        </div>
+      </div>
+      <div class="change-button left">
+        <img src="./assets/icons/arrow.svg" alt="">
+      </div>
+      <div class="container-canvas">
+        <canvas id="c" width="550" height="280" style="z-index: 1;">
+        </canvas>
+        <img src="./assets/shoes/af1out.png" class="shoes-bg" alt="">
+        <div class="list-side">
+          <div *ngFor="let side of listSide" class="item">
+            <img [src]="side.img" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="change-button">
+        <img src="./assets/icons/arrow.svg" alt="">
+      </div>
     </div>
-    <canvas id="c" width="500" height="500" style="border:3px solid #131313"></canvas>
+    
     <div class="item-selected">
       <div id='i-text' class="item-panel">
         <div id="general-controls" *ngIf="generalDisplay">
@@ -52,6 +77,4 @@
         </div>
       </div>
     </div>
-  </div>  
-  <button (click)="exportToSvg()" class="export-btn">Download</button>
-    <button (click)="respond()" class="export-btn">Message</button>
+  </div>
