@@ -20,10 +20,10 @@
       <div class="container-canvas">
         <canvas id="c" width="550" height="280" style="z-index: 1;">
         </canvas>
-        <img src="./assets/shoes/af1out.png" class="shoes-bg" alt="">
+        <!-- <img src="./assets/shoes/af1out.png" class="shoes-bg" alt=""> -->
         <div class="list-side">
-          <div *ngFor="let side of listSide" class="item">
-            <img [src]="side.img" alt="">
+          <div *ngFor="let side of listSide; let i = index" class="item">
+            <img [src]="side.img" (click)="changeSide(i)" alt="">
           </div>
         </div>
       </div>
@@ -34,41 +34,44 @@
     
     <div class="item-selected">
       <div class="category-item">
-        <span>Texte</span>
+        <div class="delete-icon" *ngIf="activeObject" (click)="deleteObject()">
+          <img src="./assets/icons/delete.svg" alt="">
+        </div>
+        <span class="title" *ngIf="generalDisplay" contenteditable="true" (blur)="blur($event)">{{ activeObject.text }}</span>
+        <span class="title" *ngIf="imgDisplay">Image</span>
       </div>
       <div id='i-text' class="item-panel">
         <div id="general-controls" *ngIf="generalDisplay">
-          <div id="text-controls-additional">
-            <div id="color-select" (click)="clickColor()" class="color-select">
-              <div id="color-selected" class="color-item" [ngStyle]="{'background-color': activeColor}"></div>
-              <span class="caption">Color</span>
+          <div class="style-panel">
+            <span>Style</span>
+            <div id="text-controls-additional">
+              <input type='checkbox' [(ngModel)]="isBold" (ngModelChange)="textTransform()" name='fonttype' id="text-cmd-bold">
+              <label class="text-control" for="text-cmd-bold">
+                <b>B</b>
+              </label>
+              <input type='checkbox' [(ngModel)]="isItalic" (ngModelChange)="textTransform()" name='fonttype' id="text-cmd-italic">
+              <label class="text-control" for="text-cmd-italic">
+                <i>I</i>
+              </label>
+              <input type='checkbox' name='fonttype' id="text-cmd-underline">
+              <label class="text-control" for="text-cmd-underline">
+                <span style="text-decoration:underline">U</span>
+              </label>
+              <select id="font-family" (change)="changeFont($event.target.value)">
+                <option value="arial">Arial</option>
+                <option value="helvetica" selected>Helvetica</option>
+                <option value="comic sans ms">Comic Sans MS</option>
+              </select>
             </div>
-            <input type='checkbox' [(ngModel)]="isBold" (ngModelChange)="textTransform()" name='fonttype' id="text-cmd-bold">
-            <label class="text-control" for="text-cmd-bold">
-              <b>B</b>
-            </label>
-            <input type='checkbox' [(ngModel)]="isItalic" (ngModelChange)="textTransform()" name='fonttype' id="text-cmd-italic">
-            <label class="text-control" for="text-cmd-italic">
-              <i>I</i>
-            </label>
-            <input type='checkbox' name='fonttype' id="text-cmd-underline">
-            <label class="text-control" for="text-cmd-underline">
-              <span style="text-decoration:underline">U</span>
-            </label>
           </div>
-          <label for="font-family" style="display:inline-block">Font family:</label>
-          <select id="font-family">
-            <option value="arial">Arial</option>
-            <option value="helvetica" selected>Helvetica</option>
-            <option value="comic sans ms">Comic Sans MS</option>
-          </select>
-        </div>
-        <div id="color-controls" *ngIf="colorDisplay">
-          <div class="header-control">
-            <span (click)="back()"> < </span> <p>Choose a coulor</p>
-          </div>  
-          <div id="color-list">
-            <div *ngFor="let item of colorList" class="color-item" [id]="item" [ngClass]="{active: activeColor === '#'+item}" [ngStyle]="{'background-color': '#'+item}" (click)="changeColor(item)"></div>
+          <div id="color-controls">
+            <span>Couleur</span>
+            <!-- <div class="header-control">
+              <span (click)="back()"> < </span> <p>Choose a coulor</p>
+            </div>   -->
+            <div id="color-list">
+              <div *ngFor="let item of colorList" class="color-item" [id]="item" [ngClass]="{active: activeColor === '#'+item}" [ngStyle]="{'background-color': '#'+item}" (click)="changeColor(item)"></div>
+            </div>
           </div>
         </div>
         <div id='image' *ngIf="imgDisplay">
@@ -78,6 +81,14 @@
               <div *ngFor="let item of imgLib?.colors" class="color-item" [ngClass]="{active: activeObject.color === item.color}" [ngStyle]="{'background-color': '#'+item.color}" (click)="changeColorImg(item)"></div>
             </div>
         </div>
+      </div>
+      <div class="price-panel">
+        <span class="title">
+          Total
+        </span> 
+        <span class="title">
+          {{ totalPrice }}€
+        </span> 
       </div>
     </div>
   </div>

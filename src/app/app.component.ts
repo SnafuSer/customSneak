@@ -21,13 +21,16 @@ export class AppComponent {
     private assetsLib: AssetsLibService,) {
   }
   public canvas: any;
+  // public ctx: any;
   public imgLib: any;
   public activeObject: any;
   public objType: any;
   public node: any;
   public listSide: Array<SideShoes>;
+  public totalPrice: number = 0
   ngOnInit() {
     this.canvas = new fabric.Canvas('c',);
+    
     this.canvas.preserveObjectStacking = false;
     this.listSide = [
       {
@@ -58,29 +61,63 @@ export class AppComponent {
     this.canvas.on('selection:updated', (e) => {
       this.onObjectUpdated()
     });
+    this.init()
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
-    console.log('getEvnt', event)
     if(event.data.pay)this.receiveMessage(event);
   }
   receiveMessage(event) {
-    console.log('active function')
     this.respond()
   }
   public url: any
   respond() {
-    console.log('sendEvnt')
     this.exportToSvg()
     setTimeout(() => {
       var data = {
         id: "1",
         svg: this.url,
-        price: "40"
+        price: this.totalPrice
       }
-      console.log('data', data)
       window.parent.postMessage(data, "*");
     }, 100);
+  }
+  public side
+  init() {
+    this.side = fabric.Image.fromURL(this.listSide[0].img, (img) => {
+      img.scaleToWidth(this.canvas.width);
+      var oImg = img.set({
+        left: 0,
+        top: 30,
+        width: this.canvas.width,
+        height: this.canvas.height,
+        angle: 0,
+        selectable: false,
+        id: "side"
+      });
+      this.canvas.add(oImg).renderAll();
+    });
+  }
+  changeSide(src) {
+    // console.log('okok',fabric.getItem('side'))
+  
+    this.canvas.getObjects().forEach(element => {
+        if(element.id === "side") {
+          console.log('okok', element)
+            // this.canvas.setActiveObject(o);
+            element.setSrc(this.listSide[src].img, (img) => {
+              img.scaleToWidth(550);
+              var oImg = img.set({
+                selectable: false,
+                top: 30,
+                width: 550,
+                height: 280,
+                id: "side"
+              });
+              this.canvas.add(oImg).renderAll();
+            });
+        }
+    })
   }
   // add rectangle
   addRect() {
@@ -103,9 +140,10 @@ export class AppComponent {
       left: 100,
       top: 150,
       fill: '#131313',
-      selectable: true
+      selectable: true, 
+      price: 7
     });
-
+    this.totalPrice += itext.price
     this.canvas.add(itext);
   }
 
@@ -134,10 +172,11 @@ export class AppComponent {
   // }
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
+    console.log("exportSvg", exportSvg)
     localStorage.setItem('svg', exportSvg);
     var json_data = JSON.stringify(this.canvas.toDatalessJSON()); 
     this.url = exportSvg
-    console.log(this.url);
+    // console.log(this.url);
     // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(json_data);
     // document.querySelector('#list').innerHTML = '<a href="" id="downloadAnchorElem"></a>';
     // var dlAnchorElem = document.getElementById('downloadAnchorElem');
@@ -166,11 +205,16 @@ export class AppComponent {
         top: 0,
         angle: 0,
         id: e.item.id,
+        price: e.item.price
       });
       this.canvas.add(oImg).renderAll();
+      this.totalPrice += oImg.price
     });
   }
-  
+  blur(event) {
+    this.canvas.getActiveObject().set("text", event.srcElement.innerText);
+    this.canvas.add(this.canvas.getActiveObject()).renderAll();
+  }
   // upload image
   importImg(e) {
     const fileReader: FileReader = new FileReader();
@@ -183,13 +227,15 @@ export class AppComponent {
         oImg = img.set({
           left: 0, 
           top: 0, 
-          angle: 0
+          angle: 0,
+          price: 8
         })
         this.canvas.add(oImg).renderAll();
       });
     };
     fileReader.readAsDataURL(e);
   }
+
   onObjectSelected() {
     // check if type is a property of active element
     this.objType = (this.canvas.getActiveObject().type ? this.canvas.getActiveObject().type : "");
@@ -202,6 +248,7 @@ export class AppComponent {
   onObjectCleared() {
     this.clear()
     this.exportToSvg()
+    this.activeObject = null
   }
   onObjectUpdated() {
     this.clear()
@@ -211,7 +258,12 @@ export class AppComponent {
     this.objType = (this.canvas.getActiveObject().type ? this.canvas.getActiveObject().type : "");
     this.switchDisplay(this.objType)
   }
-
+  deleteObject() {
+    this.totalPrice -= this.canvas.getActiveObject().price
+    this.canvas.remove(this.canvas.getActiveObject());
+    this.canvas.renderAll();
+    // this.canvas.requestRenderAll();
+  }
   public activeColor: string
   public colorDisplay = false
   public isBold = false
@@ -242,6 +294,12 @@ export class AppComponent {
     else this.canvas.getActiveObject().set("fontStyle", "");
     this.canvas.renderAll()
   }
+  changeFont(event) {
+    console.log(event)
+    this.canvas.getActiveObject().set("fontFamily", event);
+    this.canvas.renderAll();
+  }
+  
   switchDisplay(obj) {
     switch (this.objType) {
       case 'i-text':
@@ -289,7 +347,6 @@ export class AppComponent {
     node.classList.add("active")
   }
   changeColorImg(color) {
-    console.log('img', color)
     let oImg
     this.canvas.getActiveObject().setSrc(color.img, (img) => {
       img.scaleToWidth(300);
@@ -314,7 +371,6 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.addStockImg(result)
-      console.log('result', result)
     });
 
   }
