@@ -25,6 +25,10 @@
         </div>
         <div class="list-side">
           <div *ngFor="let side of listSide; let i = index" class="item">
+            <!-- <div class="svg-preview" [innerHTML]="sanitizer.bypassSecurityTrustHtml(side.svg)"></div> -->
+            <!-- <div [inlineSVG]="side.svg"></div> -->
+            <!-- <div [style.background]="'url(data:image/svg+xml;utf8,' + side.svg + ')'" (click)="changeSide(i)" alt="">
+            </div> -->
             <img [src]="side.img" (click)="changeSide(i)" alt="">
           </div>
         </div>

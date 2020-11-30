@@ -4,6 +4,7 @@ import { ModalLibDialog } from "../components/modals/modalLib/modalLib";
 import { ModalImportDialog } from "../components/modals/modalImport/modalImport";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AssetsLibService } from '../services/assetsLib.service'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export interface SideShoes {
   img: string;
@@ -19,7 +20,8 @@ export interface SideShoes {
 export class AppComponent {
   constructor(
     private dialog: MatDialog,
-    private assetsLib: AssetsLibService,) {
+    private assetsLib: AssetsLibService,
+    public sanitizer: DomSanitizer) {
   }
   public canvas: any;
   // public ctx: any;
@@ -85,7 +87,7 @@ export class AppComponent {
         price: this.totalPrice
       }
       window.parent.postMessage(data, "*");
-    }, 100);
+    }, 50);
   }
   public side: string = ""
   public sideNumber: number = 0
@@ -93,19 +95,16 @@ export class AppComponent {
     this.side = this.listSide[0].img
   }
   changeSide(src) {
-    console.log('list change', this.listSide)
     this.exportToSvg()
     let ctx = this.canvas.getContext("2d");
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     setTimeout(() => {
-      console.log('list change timed', this.listSide)
-      console.log('src', src)
       if (src === 4) src = 0
       if (src < 0) src = 3
       this.side = this.listSide[src].img
       this.sideNumber = src
       this.loadJson(src)
-    }, 150);
+    }, 10);
   }
   // importJson() {
   //   var json = this.listSide[this.sideNumber].json
@@ -127,9 +126,6 @@ export class AppComponent {
   //   document.location.href = "#"
   // }
   loadJson(src) {
-    console.log('src load', src)
-    console.log('list load', this.listSide)
-    console.log('this.listSide[src].json', this.listSide[src].json)
     this.canvas.loadFromJSON(this.listSide[src].json);  
     this.canvas.renderAll();
   }
@@ -194,7 +190,6 @@ export class AppComponent {
     var json_data = JSON.stringify(this.canvas.toDatalessJSON()); 
     this.listSide[this.sideNumber].svg = exportSvg
     this.listSide[this.sideNumber].json = json_data
-    console.log('list export', this.listSide)
   }
   // use modal images
   addStockImg(e) {

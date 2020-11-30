@@ -7,6 +7,8 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
 // ***** Material *****
 import {
   MatButtonModule,
@@ -29,6 +31,7 @@ import {
   MatIconModule
 } from '@angular/material';
 // ***** other *****
+import { InlineSVGModule } from 'ng-inline-svg';
 
 // ####################################################################
 // ######################## Internal #################################
@@ -44,6 +47,8 @@ import {
   imports: [
     CommonModule,
     BrowserModule,
+    HttpClientModule,
+    InlineSVGModule.forRoot(),
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
@@ -69,6 +74,8 @@ import {
   bootstrap: [],
   entryComponents: [],
   exports: [
+    HttpClientModule,
+    InlineSVGModule,
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
