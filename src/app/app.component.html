@@ -15,12 +15,14 @@
         </div>
       </div>
       <div class="change-button left">
-        <img src="./assets/icons/arrow.svg" alt="">
+        <img src="./assets/icons/arrow.svg" (click)="changeSide(sideNumber-1)" alt="">
       </div>
       <div class="container-canvas">
         <canvas id="c" width="550" height="280" style="z-index: 1;">
         </canvas>
-        <!-- <img src="./assets/shoes/af1out.png" class="shoes-bg" alt=""> -->
+        <div class="side-container" [ngStyle]="{'background-image': 'url(' + side + ')'}">
+          <!-- <img [src]="side" class="shoes-bg" alt=""> -->
+        </div>
         <div class="list-side">
           <div *ngFor="let side of listSide; let i = index" class="item">
             <img [src]="side.img" (click)="changeSide(i)" alt="">
@@ -28,7 +30,7 @@
         </div>
       </div>
       <div class="change-button">
-        <img src="./assets/icons/arrow.svg" alt="">
+        <img src="./assets/icons/arrow.svg" (click)="changeSide(sideNumber+1)" alt="">
       </div>
     </div>
     

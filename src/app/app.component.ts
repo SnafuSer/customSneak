@@ -8,6 +8,7 @@ import { AssetsLibService } from '../services/assetsLib.service'
 export interface SideShoes {
   img: string;
   svg: string;
+  json: string;
 }
 
 @Component({
@@ -35,21 +36,26 @@ export class AppComponent {
     this.listSide = [
       {
         img: "./assets/shoes/af1out.png",
-        svg: ""
+        svg: "",
+        json: ""
       },
       {
         img: "./assets/shoes/af1in.png",
-        svg: ""
+        svg: "",
+        json: ""
       },
       {
         img: "./assets/shoes/af1top.png",
-        svg: ""
+        svg: "",
+        json: ""
       },
       {
         img: "./assets/shoes/af1back.png",
-        svg: ""
+        svg: "",
+        json: ""
       }
     ]
+    this.init()
   }
   ngAfterViewInit() {
     this.canvas.on('selection:created', (e) => {
@@ -61,7 +67,7 @@ export class AppComponent {
     this.canvas.on('selection:updated', (e) => {
       this.onObjectUpdated()
     });
-    this.init()
+    
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
@@ -75,49 +81,49 @@ export class AppComponent {
     this.exportToSvg()
     setTimeout(() => {
       var data = {
-        id: "1",
-        svg: this.url,
+        svg: this.listSide,
         price: this.totalPrice
       }
       window.parent.postMessage(data, "*");
     }, 100);
   }
-  public side
+  public side: string = ""
+  public sideNumber: number = 0
   init() {
-    this.side = fabric.Image.fromURL(this.listSide[0].img, (img) => {
-      img.scaleToWidth(this.canvas.width);
-      var oImg = img.set({
-        left: 0,
-        top: 30,
-        width: this.canvas.width,
-        height: this.canvas.height,
-        angle: 0,
-        selectable: false,
-        id: "side"
-      });
-      this.canvas.add(oImg).renderAll();
-    });
+    this.side = this.listSide[0].img
   }
   changeSide(src) {
-    // console.log('okok',fabric.getItem('side'))
-  
-    this.canvas.getObjects().forEach(element => {
-        if(element.id === "side") {
-          console.log('okok', element)
-            // this.canvas.setActiveObject(o);
-            element.setSrc(this.listSide[src].img, (img) => {
-              img.scaleToWidth(550);
-              var oImg = img.set({
-                selectable: false,
-                top: 30,
-                width: 550,
-                height: 280,
-                id: "side"
-              });
-              this.canvas.add(oImg).renderAll();
-            });
-        }
-    })
+    this.exportToSvg()
+    let ctx = this.canvas.getContext("2d");
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (src === 4) src = 0
+    if (src < 0) src = 3
+    this.side = this.listSide[src].img
+    this.sideNumber = src
+    this.loadJson(src)
+  }
+  // importJson() {
+  //   var json = this.listSide[this.sideNumber].json
+  //   //uploadJson(fileLoaded)
+  //   var result
+  //   var formatted
+  //   var fr = new FileReader();
+  //   fr.onload = function(e) { 
+  //     console.log("2", e);
+  //     result = JSON.parse(e.target.result);
+  //     console.log("result", result);
+  //     formatted = JSON.stringify(result, null, 2);
+  //     console.log("formatted", formatted);
+      
+  //     loadJson(formatted)
+  //   }
+    
+  //   fr.readAsText(json); 
+  //   document.location.href = "#"
+  // }
+  loadJson(src) {
+    this.canvas.loadFromJSON(this.listSide[src].json);  
+    this.canvas.renderAll();
   }
   // add rectangle
   addRect() {
@@ -136,9 +142,10 @@ export class AppComponent {
   }
   // add text
   addText() {
-    var itext = new fabric.IText('This is a IText object', {
+    var itext = new fabric.IText('Double clique pour modifier', {
       left: 100,
       top: 150,
+      width: 75,
       fill: '#131313',
       selectable: true, 
       price: 7
@@ -172,29 +179,12 @@ export class AppComponent {
   // }
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
-    console.log("exportSvg", exportSvg)
-    localStorage.setItem('svg', exportSvg);
+    // console.log("exportSvg", exportSvg)
+    // localStorage.setItem('svg', exportSvg);
     var json_data = JSON.stringify(this.canvas.toDatalessJSON()); 
-    this.url = exportSvg
-    // console.log(this.url);
-    // var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(json_data);
-    // document.querySelector('#list').innerHTML = '<a href="" id="downloadAnchorElem"></a>';
-    // var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    // dlAnchorElem.setAttribute("href",     dataStr     );
-    // dlAnchorElem.setAttribute("download", "scene.json");
-    // dlAnchorElem.click();
-    // var svgBlob = new Blob([exportSvg], {type:"image/svg+xml;charset=utf-8"});
-    // this.url = URL.createObjectURL(svgBlob);
-    // return URL.createObjectURL(svgBlob);
-    // console.log('azert', svgUrl)
-    // console.log('aze', svgBlob)
-    // var downloadLink = document.createElement("a");
-    // downloadLink.href = this.url;
-    // downloadLink.download = "newesttree.svg";
-    // console.log('downloadLink', downloadLink)
-    // document.body.appendChild(downloadLink);
-    // downloadLink.click();
-    // document.body.removeChild(downloadLink);
+    this.listSide[this.sideNumber].svg = exportSvg
+    this.listSide[this.sideNumber].json = json_data
+    console.log('list', this.listSide)
   }
   // use modal images
   addStockImg(e) {
