@@ -37,22 +37,22 @@ export class AppComponent {
       {
         img: "./assets/shoes/af1out.png",
         svg: "",
-        json: ""
+        json: '{"version":"4.2.0","objects":[]}'
       },
       {
         img: "./assets/shoes/af1in.png",
         svg: "",
-        json: ""
+        json: '{"version":"4.2.0","objects":[]}'
       },
       {
         img: "./assets/shoes/af1top.png",
         svg: "",
-        json: ""
+        json: '{"version":"4.2.0","objects":[]}'
       },
       {
         img: "./assets/shoes/af1back.png",
         svg: "",
-        json: ""
+        json: '{"version":"4.2.0","objects":[]}'
       }
     ]
     this.init()
@@ -93,14 +93,19 @@ export class AppComponent {
     this.side = this.listSide[0].img
   }
   changeSide(src) {
+    console.log('list change', this.listSide)
     this.exportToSvg()
     let ctx = this.canvas.getContext("2d");
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    if (src === 4) src = 0
-    if (src < 0) src = 3
-    this.side = this.listSide[src].img
-    this.sideNumber = src
-    this.loadJson(src)
+    setTimeout(() => {
+      console.log('list change timed', this.listSide)
+      console.log('src', src)
+      if (src === 4) src = 0
+      if (src < 0) src = 3
+      this.side = this.listSide[src].img
+      this.sideNumber = src
+      this.loadJson(src)
+    }, 150);
   }
   // importJson() {
   //   var json = this.listSide[this.sideNumber].json
@@ -122,6 +127,9 @@ export class AppComponent {
   //   document.location.href = "#"
   // }
   loadJson(src) {
+    console.log('src load', src)
+    console.log('list load', this.listSide)
+    console.log('this.listSide[src].json', this.listSide[src].json)
     this.canvas.loadFromJSON(this.listSide[src].json);  
     this.canvas.renderAll();
   }
@@ -148,6 +156,8 @@ export class AppComponent {
       width: 75,
       fill: '#131313',
       selectable: true, 
+      fontSize: "22",
+      fontFamily: "anton",
       price: 7
     });
     this.totalPrice += itext.price
@@ -184,7 +194,7 @@ export class AppComponent {
     var json_data = JSON.stringify(this.canvas.toDatalessJSON()); 
     this.listSide[this.sideNumber].svg = exportSvg
     this.listSide[this.sideNumber].json = json_data
-    console.log('list', this.listSide)
+    console.log('list export', this.listSide)
   }
   // use modal images
   addStockImg(e) {
