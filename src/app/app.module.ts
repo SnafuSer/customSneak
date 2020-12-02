@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Step1Component } from './step1/step1.page';
+import { Step2Component } from './step2/step2.page';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // ***** Redux *****
@@ -21,6 +23,8 @@ import { ModalModule } from "../components/modals/modal.module";
 @NgModule({
   declarations: [
     AppComponent,
+    Step1Component,
+    Step2Component
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,10 @@ import { ModalModule } from "../components/modals/modal.module";
     StoreModule.forRoot(reducers, { initialState: INITIAL_STATE }),
     StoreDevtoolsModule.instrument({ maxAge: 10, name: '[SNEAKIT]' }),
   ],
-  providers: [],
+  providers: [
+    Step1Component,
+    Step2Component
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

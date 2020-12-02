@@ -1,29 +1,30 @@
 <div class="popup">
   <div class="header-container">
-    <h2>Import a design</h2>
+    <h2>Importer un design</h2>
     <a class="close" href="#">&times;</a>
   </div>
   <div class="container-modal">
     <div class="import-zone">
       <div class="accept">
-               <p class="warning">
-En important une image, vous confirmez qu’elle ne va ni à l’encontre de la loi ni des droits de tiers. Vous pouvez <a href="">ici</a> en savoir davantage sur les motifs de refus de Sneakit.</p>
+      <p class="warning">
+        En important une image, vous confirmez qu’elle ne va ni à l’encontre de la loi ni des droits de tiers. Vous pouvez <a href="">ici</a> en savoir davantage sur les motifs de refus de Sneakit.
+      </p>
       <div class="toggle-contain" (click)="onClick()">
         <div id="toggle">
           <div class="inner-container">
             <div class="toggle">
-              <p>Yes</p>
+              <p>Oui</p>
             </div>
             <div class="toggle">
-              <p>No</p>
+              <p>Non</p>
             </div>
           </div>
           <div class="inner-container" id='toggle-container'>
             <div class="toggle">
-              <p>Yes</p>
+              <p>Oui</p>
             </div>
             <div class="toggle">
-              <p>No</p>
+              <p>Non</p>
             </div>
           </div>
         </div>
@@ -32,7 +33,7 @@ En important une image, vous confirmez qu’elle ne va ni à l’encontre de la 
 
       <label id="largeFile" for="file">
         <input type="file" (change)="loadFile($event)" id="file" />
-        Import a file
+        Importer un fichier
       </label>
 
     </div>
@@ -41,6 +42,6 @@ En important une image, vous confirmez qu’elle ne va ni à l’encontre de la 
     </div>
   </div>
   <div class="container-button">
-    <button (click)="uploadImage()">import</button>
+    <button (click)="uploadImage()">Importer</button>
   </div>
 </div>
