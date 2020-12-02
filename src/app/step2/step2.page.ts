@@ -47,22 +47,22 @@ export class Step2Component {
     this.canvas.preserveObjectStacking = false;
     this.listSide = [
       {
-        img: "./assets/shoes/af1out.png",
+        img: "./assets/shoes/af1/af1out.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       },
       {
-        img: "./assets/shoes/af1in.png",
+        img: "./assets/shoes/af1/af1in.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       },
       {
-        img: "./assets/shoes/af1top.png",
+        img: "./assets/shoes/af1/af1top.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       },
       {
-        img: "./assets/shoes/af1back.png",
+        img: "./assets/shoes/af1/af1back.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       }
