@@ -21,14 +21,9 @@
         <canvas id="c" width="550" height="280" style="z-index: 1;">
         </canvas>
         <div class="side-container" [ngStyle]="{'background-image': 'url(' + side + ')'}">
-          <!-- <img [src]="side" class="shoes-bg" alt=""> -->
         </div>
         <div class="list-side">
           <div *ngFor="let side of listSide; let i = index" class="item">
-            <!-- <div class="svg-preview" [innerHTML]="sanitizer.bypassSecurityTrustHtml(side.svg)"></div> -->
-            <!-- <div [inlineSVG]="side.svg"></div> -->
-            <!-- <div [style.background]="'url(data:image/svg+xml;utf8,' + side.svg + ')'" (click)="changeSide(i)" alt="">
-            </div> -->
             <img [src]="side.img" (click)="changeSide(i)" alt="">
           </div>
         </div>
@@ -46,7 +41,7 @@
         <span class="title" *ngIf="generalDisplay" contenteditable="true" (blur)="blur($event)">{{ activeObject.text }}</span>
         <span class="title" *ngIf="imgDisplay">Image</span>
       </div>
-      <div id='i-text' class="item-panel">
+      <div id="i-text" class="item-panel">
         <div id="general-controls" *ngIf="generalDisplay">
           <div class="style-panel">
             <span>Style</span>
@@ -73,20 +68,27 @@
           </div>
           <div id="color-controls">
             <span>Couleur</span>
-            <!-- <div class="header-control">
-              <span (click)="back()"> < </span> <p>Choose a coulor</p>
-            </div>   -->
             <div id="color-list">
               <div *ngFor="let item of colorList" class="color-item" [id]="item" [ngClass]="{active: activeColor === '#'+item}" [ngStyle]="{'background-color': '#'+item}" (click)="changeColor(item)"></div>
             </div>
           </div>
         </div>
-        <div id='image' *ngIf="imgDisplay">
-            <div (click)="bringForward()">En avant</div>
-            <div (click)="bringBackward()">En arriere</div>
+        <div id="image" class="item-panel" *ngIf="imgDisplay">
+          <div class="style-panel">
+            <span>Style</span>
+            <div id="img-controls-additional">
+              <div (click)="bringForward()">En avant </div>
+              <div (click)="bringBackward()"> En arriere</div>
+              <!-- <div (click)="flipX()">Flip X</div>
+              <div (click)="flipY()">Flip Y</div> -->
+            </div>
+          </div>
+          <div id="color-controls">
+            <span>Couleur</span>
             <div id="color-list">
               <div *ngFor="let item of imgLib?.colors" class="color-item" [ngClass]="{active: activeObject.color === item.color}" [ngStyle]="{'background-color': '#'+item.color}" (click)="changeColorImg(item)"></div>
             </div>
+          </div>
         </div>
       </div>
       <div class="price-panel">

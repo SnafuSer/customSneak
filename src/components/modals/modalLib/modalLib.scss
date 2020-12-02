@@ -5,13 +5,13 @@
     transition: all 5s ease-in-out;
   }
   .header-container {
-    border-bottom: 4px solid #131313;
+    border-bottom: 4px solid #171717;
     display: flex;
   }
   .popup h2 {
     margin: 0 0 20px;
     color: #333;
-    font-family: Arial, sans-serif;
+    font-family: 'anton', Arial, sans-serif;
     text-transform: uppercase;
   }
   .popup .close {
@@ -20,7 +20,8 @@
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
-    color: #333;
+    color: #171717;
+    cursor: pointer;
   }
   .popup .close:hover {
     color: #056FFA;
@@ -40,7 +41,7 @@
       height: 52px;
       border: none;
       border-radius: 0;
-      background-color: #131313;
+      background-color: #171717;
       color: white;
       padding: 0 24px;
       font-size: 16px;
@@ -59,7 +60,7 @@
   }
   .category-item {
     line-height: 56px;
-    background-color: #131313;
+    background-color: #171717;
     padding: 0 16px;
     margin: 4px 0;
     text-align: center;
@@ -68,6 +69,7 @@
     font-size: 18px;
     text-transform: uppercase;
     font-weight: bold;
+    font-family: 'anton';
     cursor: pointer;
     user-select: none;
     &:hover {
@@ -85,10 +87,17 @@
     list-style-type: none;
     margin: 0 !important;
     padding: 16px;
+    overflow-y: scroll;
     img {
       height : 150px;
       width: auto;
       margin: auto 16px;
+    }
+    .multi {
+      position: absolute;
+      width: 25px;
+      top: 25px;
+      margin-left: 25px;
     }
   }
   .item-modal {
@@ -96,7 +105,7 @@
     cursor: pointer;
     &:hover {
       .img-stock {
-        background-color: #E5E5E5;
+        background-color: #FAFAFA;
       }
     }
   }
@@ -114,7 +123,7 @@
       font-size: 12px
     }
     .price {
-      background-color: #131313;
+      background-color: #171717;
       padding: 4px;
       color: white;
       font-size: 12px

@@ -28,11 +28,10 @@ export class ModalLibDialog {
   }
   // use modal images
   addStockImg(e, item) {
-    console.log('item', item)
     var imgObj = e.srcElement.currentSrc;
     this.closeDialog(imgObj, item)
   }
-  closeDialog(img, item) {
+  closeDialog(img?, item?) {
     var result = {
       img: img,
       item: item

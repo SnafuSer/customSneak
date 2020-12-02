@@ -136,11 +136,13 @@
     }
   }
   .item-panel {
-    // border: 1px solid #FAFAFA;
     padding-left: 16px;
     flex: 5;
     height: 150px;
     display: flex;
+    &#image {
+      flex-direction: column;
+    }
   }
   .item-selected {
     border: 1px solid #FAFAFA;
@@ -176,9 +178,6 @@
     flex: 4;
     display: flex;
     flex-direction: column;
-    // &.display {
-    //   display: none
-    // }
   }
   .price-panel {
     flex: 1;
@@ -210,6 +209,7 @@
   #color-list {
     display: flex;
     flex-wrap: wrap;
+    margin: auto 0;
     .color-item {
       height: 32px;
       width: 32px;
@@ -249,17 +249,21 @@
       margin: 0 auto auto auto
     }
   }
-  #text-controls-additional {
-    // border: 3px solid #131313;
+  #img-controls-additional {
     display: flex;
     width: fit-content;
+  }
+  #text-controls-additional {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
   }
   input[type="checkbox"] {
     display: none;
     &:checked {
       + .text-control {
-        background-color: #131313;
-        color: white;
+        background-color: #171717;
+        color: white !important;
       }
     }
   }

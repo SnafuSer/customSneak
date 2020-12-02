@@ -21,16 +21,24 @@ export class AppComponent {
   constructor(
     private dialog: MatDialog,
     private assetsLib: AssetsLibService,
-    public sanitizer: DomSanitizer) {
-  }
-  public canvas: any;
-  // public ctx: any;
-  public imgLib: any;
+    public sanitizer: DomSanitizer) {}
+    
+  public activeColor: string;  
   public activeObject: any;
-  public objType: any;
-  public node: any;
+  public canvas: any;  
+  public colorDisplay = false
+  public colorList = ["131313", "FFFFFF", "192F97", "D41C3B", "FF9090", "A92355", "E35110"]
+  public generalDisplay = false
+  public imgDisplay = false
+  public imgLib: any;
+  public isBold = false
+  public isItalic = false
   public listSide: Array<SideShoes>;
-  public totalPrice: number = 0
+  public objType: string;
+  public side: string = "";
+  public sideNumber: number = 0;
+  public totalPrice: number = 0;
+
   ngOnInit() {
     this.canvas = new fabric.Canvas('c',);
     
@@ -78,7 +86,6 @@ export class AppComponent {
   receiveMessage(event) {
     this.respond()
   }
-  public url: any
   respond() {
     this.exportToSvg()
     setTimeout(() => {
@@ -89,10 +96,9 @@ export class AppComponent {
       window.parent.postMessage(data, "*");
     }, 50);
   }
-  public side: string = ""
-  public sideNumber: number = 0
   init() {
     this.side = this.listSide[0].img
+    this.loadJson(0)
   }
   changeSide(src) {
     this.exportToSvg()
@@ -106,25 +112,6 @@ export class AppComponent {
       this.loadJson(src)
     }, 10);
   }
-  // importJson() {
-  //   var json = this.listSide[this.sideNumber].json
-  //   //uploadJson(fileLoaded)
-  //   var result
-  //   var formatted
-  //   var fr = new FileReader();
-  //   fr.onload = function(e) { 
-  //     console.log("2", e);
-  //     result = JSON.parse(e.target.result);
-  //     console.log("result", result);
-  //     formatted = JSON.stringify(result, null, 2);
-  //     console.log("formatted", formatted);
-      
-  //     loadJson(formatted)
-  //   }
-    
-  //   fr.readAsText(json); 
-  //   document.location.href = "#"
-  // }
   loadJson(src) {
     this.canvas.loadFromJSON(this.listSide[src].json);  
     this.canvas.renderAll();
@@ -159,34 +146,8 @@ export class AppComponent {
     this.totalPrice += itext.price
     this.canvas.add(itext);
   }
-
-  // upload image
-  // uploadImage(e) {
-  //   console.log('ee', e)
-  //   var file = e.target.files[0];
-  //   var reader = new FileReader();
-  //   reader.onload = function (f) {
-  //     var data = f.target.result;                    
-  //     fabric.Image.fromURL(data, function (img) {
-  //       img.scaleToWidth(300);
-  //       var oImg = img.set({
-  //         left: 0, 
-  //         top: 0, 
-  //         angle: 0, 
-  //       });
-
-  //       this.canvas.add(oImg).renderAll();
-  //       var a = this.canvas.setActiveObject(oImg);
-  //       var dataURL = this.canvas.toDataURL({format: 'png', quality: 0.8});
-
-  //     });
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
-    // console.log("exportSvg", exportSvg)
-    // localStorage.setItem('svg', exportSvg);
     var json_data = JSON.stringify(this.canvas.toDatalessJSON()); 
     this.listSide[this.sideNumber].svg = exportSvg
     this.listSide[this.sideNumber].json = json_data
@@ -200,7 +161,9 @@ export class AppComponent {
         top: 0,
         angle: 0,
         id: e.item.id,
-        price: e.item.price
+        price: e.item.price,
+        flipX: false,
+        flipY: false,
       });
       this.canvas.add(oImg).renderAll();
       this.totalPrice += oImg.price
@@ -213,7 +176,6 @@ export class AppComponent {
   // upload image
   importImg(e) {
     const fileReader: FileReader = new FileReader();
-    // var reader = new FileReader();
     var oImg
     fileReader.onloadend = (event: Event) => {
       var data = fileReader.result;    
@@ -223,7 +185,9 @@ export class AppComponent {
           left: 0, 
           top: 0, 
           angle: 0,
-          price: 8
+          price: 8,
+          flipX: false,
+          flipY: false,
         })
         this.canvas.add(oImg).renderAll();
       });
@@ -257,16 +221,7 @@ export class AppComponent {
     this.totalPrice -= this.canvas.getActiveObject().price
     this.canvas.remove(this.canvas.getActiveObject());
     this.canvas.renderAll();
-    // this.canvas.requestRenderAll();
   }
-  public activeColor: string
-  public colorDisplay = false
-  public isBold = false
-  public isItalic = false
-  public generalDisplay = false
-  public imgDisplay = false
-  public colorList = ["131313", "FFFFFF", "192F97", "D41C3B", "FF9090", "A92355", "E35110"]
-
   clickColor() {
     this.generalDisplay = false
     this.colorDisplay = true
@@ -290,7 +245,6 @@ export class AppComponent {
     this.canvas.renderAll()
   }
   changeFont(event) {
-    console.log(event)
     this.canvas.getActiveObject().set("fontFamily", event);
     this.canvas.renderAll();
   }
@@ -331,6 +285,20 @@ export class AppComponent {
       this.canvas.renderAll(); 
     }, 150);
   }
+  flipX() {
+    let el = this.canvas.getActiveObject()
+    this.canvas.set("flipX", !this.canvas.getActiveObject().flipX)
+    setTimeout(() => {
+      this.canvas.renderAll(); 
+    }, 150);
+  }
+  flipY() {
+    let el = this.canvas.getActiveObject()
+    this.canvas.set("flipY", !this.canvas.getActiveObject().flipY)
+    setTimeout(() => {
+      this.canvas.renderAll(); 
+    }, 150);
+  }
   changeColor(color) {
     var elements = document.getElementsByClassName("color-item")
     for (var i = 0; i < elements.length; i++) {
@@ -350,10 +318,6 @@ export class AppComponent {
       })
       this.canvas.add(oImg).renderAll();
     });
-    // this.canvas.getActiveObject().setSrc(color.img);
-    // setTimeout(() => {
-    //   this.canvas.renderAll(); 
-    // }, 50);
   }
   openModalLib() {
 

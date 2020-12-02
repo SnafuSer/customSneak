@@ -36,7 +36,6 @@ export class ModalImportDialog {
   
   loadFile(event) {
     this.fileLoaded = event
-    console.log('ev', event)
     var output = <HTMLImageElement>document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function() {
