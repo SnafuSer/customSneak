@@ -15,11 +15,11 @@ export class Step1Component {
   public listShoes: Array<any> = [
     {
       type: "af1",
-      img: "./assets/shoes/af1/af1out.png"
+      img: "./assets/shoes/af1/out.png"
     },
     {
       type: "stan",
-      img: "./assets/shoes/stan/stanIn.png"
+      img: "./assets/shoes/stan/in.png"
     }
   ]
   public choice: any
