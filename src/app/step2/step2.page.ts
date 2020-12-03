@@ -41,28 +41,29 @@ export class Step2Component {
   public sideNumber: number = 0;
   public totalPrice: number = 0;
 
+  public choice: any = this.appComponent.choice
+
   ngOnInit() {
     this.canvas = new fabric.Canvas('c',);
-    
     this.canvas.preserveObjectStacking = false;
     this.listSide = [
       {
-        img: "./assets/shoes/af1/af1out.png",
+        img: "./assets/shoes/" + this.choice.type + "/out.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       },
       {
-        img: "./assets/shoes/af1/af1in.png",
+        img: "./assets/shoes/" + this.choice.type + "/in.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       },
       {
-        img: "./assets/shoes/af1/af1top.png",
+        img: "./assets/shoes/" + this.choice.type + "/top.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       },
       {
-        img: "./assets/shoes/af1/af1back.png",
+        img: "./assets/shoes/" + this.choice.type + "/back.png",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       }

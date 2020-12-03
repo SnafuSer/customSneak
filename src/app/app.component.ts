@@ -24,5 +24,6 @@ export class AppComponent {
     public sanitizer: DomSanitizer) {}
     
     public step: number = 1
+    public choice: any
  
   }

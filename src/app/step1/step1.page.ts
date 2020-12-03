@@ -12,9 +12,26 @@ export class Step1Component {
     private snackBar: MatSnackBar,
     public appComponent: AppComponent,) {
   }
-
+  public listShoes: Array<any> = [
+    {
+      type: "af1",
+      img: "./assets/shoes/af1/af1out.png"
+    },
+    {
+      type: "stan",
+      img: "./assets/shoes/stan/stanIn.png"
+    }
+  ]
+  public choice: any
   ngOnInit() {
 
+  }
+
+  setActive(item) {
+    for (let i = 0; i < this.listShoes.length; i++) {
+      if (i === item) {this.listShoes[i].choose = true; this.choice = this.listShoes[i];}
+      else this.listShoes[i].choose = false
+    }
   }
 
 }
