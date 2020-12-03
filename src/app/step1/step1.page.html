@@ -5,7 +5,7 @@
             <img [src]="shoes.img" alt="">
         </div>
     </div>
-    <div class="button" (click)="appComponent.step = 2; appComponent.choice = choice">
+    <div class="button" [ngClass]="{'disabled': !choice}" (click)="appComponent.step = 2; appComponent.choice = choice">
         Suivant
     </div>
 </div>

@@ -37,5 +37,11 @@ h2 {
     color: white;
     margin: 16px 0 0 auto;
     font-size: 14px;
-    cursor: pointer
+    cursor: pointer;
+    user-select: none;
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: auto;
+    }
 }

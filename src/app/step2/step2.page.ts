@@ -40,8 +40,9 @@ export class Step2Component {
   public side: string = "";
   public sideNumber: number = 0;
   public totalPrice: number = 0;
-
+  public loading: boolean = false
   public choice: any = this.appComponent.choice
+  // public choice: any = {type: "af1"}
 
   ngOnInit() {
     this.canvas = new fabric.Canvas('c',);
@@ -84,12 +85,14 @@ export class Step2Component {
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
+    this.loading = false
     if(event.data.pay)this.receiveMessage(event);
   }
   receiveMessage(event) {
-    this.respond()
+    // this.respond()
   }
   respond() {
+    this.loading = true
     this.exportToSvg()
     setTimeout(() => {
       var data = {
@@ -151,7 +154,7 @@ export class Step2Component {
   }
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
-    var json_data = JSON.stringify(this.canvas.toDatalessJSON()); 
+    var json_data = JSON.stringify(this.canvas.toObject(['price', 'id'])); 
     this.listSide[this.sideNumber].svg = exportSvg
     this.listSide[this.sideNumber].json = json_data
   }
@@ -320,7 +323,7 @@ export class Step2Component {
       oImg = img.set({
         color: color.color
       })
-      this.canvas.add(oImg).renderAll();
+      this.canvas.renderAll();
     });
   }
   openModalLib() {

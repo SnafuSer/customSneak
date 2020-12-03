@@ -124,7 +124,6 @@ export class AssetsLibService {
         return this.lib.filter(img => img.category === category)
     }
     public getById(id) {
-        console.log('id', id)
         return this.lib.find(img => img.id === id)
     }
 }
