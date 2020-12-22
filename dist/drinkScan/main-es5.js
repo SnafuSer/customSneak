@@ -751,10 +751,11 @@ var Step2Component = /** @class */ (function () {
                 flipX: false,
                 flipY: false,
             });
+            // oImg.crossOrigin = "Anonymous";
             oImg.globalCompositeOperation = 'source-atop';
             _this.canvas.add(oImg).renderAll();
             _this.totalPrice += oImg.price;
-        }, null, { crossOrigin: 'anonymous' });
+        }, { crossOrigin: 'Anonymous' });
     };
     Step2Component.prototype.blur = function (event) {
         this.canvas.getActiveObject().set("text", event.srcElement.innerText);

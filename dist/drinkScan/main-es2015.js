@@ -736,10 +736,11 @@ let Step2Component = class Step2Component {
                 flipX: false,
                 flipY: false,
             });
+            // oImg.crossOrigin = "Anonymous";
             oImg.globalCompositeOperation = 'source-atop';
             this.canvas.add(oImg).renderAll();
             this.totalPrice += oImg.price;
-        }, null, { crossOrigin: 'anonymous' });
+        }, { crossOrigin: 'Anonymous' });
     }
     blur(event) {
         this.canvas.getActiveObject().set("text", event.srcElement.innerText);
