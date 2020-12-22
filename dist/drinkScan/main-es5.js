@@ -52,7 +52,7 @@ module.exports = "<div class=\"container-step1\">\n    <h2>Choisis ton modèle d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"loader-container\" *ngIf=\"loading\">\n    <div class=\"loader\">\n        <svg class=\"circular\" viewBox=\"25 25 50 50\">\n          <circle class=\"path\" cx=\"50\" cy=\"50\" r=\"20\" fill=\"none\" stroke-width=\"2\" stroke-miterlimit=\"10\"/>\n        </svg>\n      </div>\n    <h4 class=\"title\">Création du design en cours</h4>\n</div>\n<div class=\"buttonBack\" (click)=\"appComponent.step = 1\">\n    <div class=\"change-button left\">\n        <img src=\"./assets/icons/arrow.svg\" (click)=\"changeSide(sideNumber-1)\" alt=\"\">\n    </div>\n    Retour\n</div>\n<div class=\"container-models\">\n    <div class=\"controls\">\n      <div id=\"add\" class=\"button\" *ngIf=\"switch !== 'zones'\" (click)=\"addText()\">\n        <img src=\"./assets/icons/text.svg\" alt=\"\">\n        <span>Texte</span>\n      </div>\n      <div class=\"button\" *ngIf=\"switch === 'zones'\" (click)=\"changeBg()\">\n        <img src=\"./assets/icons/bg.svg\" alt=\"\">\n        <span>Fond</span>\n      </div>\n      <div class=\"button\" (click)=\"openModalLib()\">\n        <img src=\"./assets/icons/image.svg\" alt=\"\">\n        <span>Design</span>\n      </div>\n      <div class=\"button\" (click)=\"openModalNike()\">\n        <img src=\"./assets/icons/image.svg\" alt=\"\">\n        <span>Nike</span>\n      </div>\n      <div class=\"button\" (click)=\"openModalImport()\">\n        <img src=\"./assets/icons/upload.svg\" alt=\"\">\n        <span>Import</span>\n      </div>\n    </div>\n    <div class=\"change-button left\">\n      <img src=\"./assets/icons/arrow.svg\" (click)=\"changeSide(sideNumber-1)\" alt=\"\">\n    </div>\n    <div class=\"container-canvas\">\n      <canvas id=\"c\" width=\"550\" height=\"280\" style=\"z-index: 1;\">\n      </canvas>\n      <!-- <div class=\"side-container\" [ngStyle]=\"{'background-image': 'url(' + side + ')'}\">\n      </div> -->\n      <div class=\"list-side\" *ngIf=\"switch === 'shoes'\">\n        <div *ngFor=\"let side of listSide; let i = index\" class=\"item\">\n          <img [src]=\"side.img\" (click)=\"changeSide(i)\" alt=\"\">\n        </div>\n      </div>\n      <div class=\"list-side\" *ngIf=\"switch === 'zones'\">\n        <div *ngFor=\"let side of listZones; let i = index\" class=\"item zone\">\n          <img [src]=\"side.imgZone\" (click)=\"changeSide(i)\" alt=\"\">\n        </div>\n      </div>\n    </div>\n    <div class=\"change-button\">\n      <img src=\"./assets/icons/arrow.svg\" (click)=\"changeSide(sideNumber+1)\" alt=\"\">\n    </div>\n    <div class=\"switch-zone\">\n      <div class=\"switch-item\" [ngClass]=\"{'active': switch === 'shoes'}\" (click)=\"switchZone('shoes')\">\n        <span>\n          Chaussure\n        </span>\n      </div>\n      <div class=\"switch-item\" [ngClass]=\"{'active': switch === 'zones'}\" (click)=\"switchZone('zones')\">\n        <span>\n          Zones\n        </span>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"item-selected\">\n    <div class=\"category-item\">\n      <div class=\"delete-icon\" *ngIf=\"activeObject\" (click)=\"deleteObject()\">\n        <img src=\"./assets/icons/delete.svg\" alt=\"\">\n      </div>\n      <span class=\"title\" *ngIf=\"generalDisplay\" contenteditable=\"true\" (blur)=\"blur($event)\">{{ activeObject.text }}</span>\n      <span class=\"title\" *ngIf=\"imgDisplay\">Image</span>\n    </div>\n    <div id=\"i-text\" class=\"item-panel\">\n      <div id=\"general-controls\" *ngIf=\"generalDisplay\">\n        <div class=\"style-panel\">\n          <span>Style</span>\n          <div id=\"text-controls-additional\">\n            <input type='checkbox' [(ngModel)]=\"isBold\" (ngModelChange)=\"textTransform()\" name='fonttype' id=\"text-cmd-bold\">\n            <label class=\"text-control\" for=\"text-cmd-bold\">\n              <b>B</b>\n            </label>\n            <input type='checkbox' [(ngModel)]=\"isItalic\" (ngModelChange)=\"textTransform()\" name='fonttype' id=\"text-cmd-italic\">\n            <label class=\"text-control\" for=\"text-cmd-italic\">\n              <i>I</i>\n            </label>\n            <input type='checkbox' name='fonttype' id=\"text-cmd-underline\">\n            <label class=\"text-control\" for=\"text-cmd-underline\">\n              <span style=\"text-decoration:underline\">U</span>\n            </label>\n            <select id=\"font-family\" (change)=\"changeFont($event.target.value)\">\n              <option value=\"arial\">Arial</option>\n              <option value=\"helvetica\">Helvetica</option>\n              <option value=\"comic sans ms\">Comic Sans MS</option>\n              <option value=\"anton\" selected>Anton</option>\n            </select>\n          </div>\n        </div>\n        <div id=\"color-controls\">\n          <span>Couleur</span>\n          <div id=\"color-list\">\n            <div *ngFor=\"let item of colorList\" class=\"color-item\" [id]=\"item\" [ngClass]=\"{active: activeColor === '#'+item}\" [ngStyle]=\"{'background-color': '#'+item}\" (click)=\"changeColor(item)\"></div>\n          </div>\n        </div>\n      </div>\n      <div id=\"image\" class=\"item-panel\" *ngIf=\"imgDisplay\">\n        <div class=\"style-panel\">\n          <span>Style</span>\n          <div id=\"img-controls-additional\">\n            <div (click)=\"bringForward()\">En avant </div>\n            <div (click)=\"bringBackward()\"> En arriere</div>\n            <!-- <div (click)=\"flipX()\">Flip X</div>\n            <div (click)=\"flipY()\">Flip Y</div> -->\n          </div>\n        </div>\n        <div id=\"color-controls\">\n          <span>Couleur</span>\n          <div id=\"color-list\">\n            <div *ngFor=\"let item of imgLib?.colors\" class=\"color-item\" [ngClass]=\"{active: activeObject.color === item.color}\" [ngStyle]=\"{'background-color': '#'+item.color}\" (click)=\"changeColorImg(item)\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"price-panel\">\n        <div>\n            <span class=\"title\">\n              Total :\n              {{ totalPrice }}€\n            </span>\n        </div>\n        <div class=\"button-cart\" [ngClass]=\"{'disabled': totalPrice === 0}\"  (click)=\"respond()\">\n            Ajouter au panier\n        </div>\n    </div>\n  </div>"
+module.exports = "<div class=\"loader-container\" *ngIf=\"loading\">\n    <div class=\"loader\">\n        <svg class=\"circular\" viewBox=\"25 25 50 50\">\n          <circle class=\"path\" cx=\"50\" cy=\"50\" r=\"20\" fill=\"none\" stroke-width=\"2\" stroke-miterlimit=\"10\"/>\n        </svg>\n      </div>\n    <h4 class=\"title\">Création du design en cours</h4>\n</div>\n<div class=\"buttonBack\" (click)=\"appComponent.step = 1\">\n    <div class=\"change-button left\">\n        <img src=\"./assets/icons/arrow.svg\" (click)=\"changeSide(sideNumber-1)\" alt=\"\">\n    </div>\n    Retour\n</div>\n<div class=\"container-models\">\n    <div class=\"controls\">\n      <div id=\"add\" class=\"button\" *ngIf=\"switch !== 'zones'\" (click)=\"addText()\">\n        <img src=\"./assets/icons/text.svg\" alt=\"\">\n        <span>Texte</span>\n      </div>\n      <div class=\"button\" *ngIf=\"switch === 'zones'\" (click)=\"displayBackgroundChoice()\">\n        <img src=\"./assets/icons/bg.svg\" alt=\"\">\n        <span>Fond</span>\n      </div>\n      <div class=\"button\" (click)=\"openModalLib()\">\n        <img src=\"./assets/icons/image.svg\" alt=\"\">\n        <span>Design</span>\n      </div>\n      <div class=\"button\" (click)=\"openModalImport()\">\n        <img src=\"./assets/icons/upload.svg\" alt=\"\">\n        <span>Import</span>\n      </div>\n    </div>\n    <div class=\"change-button left\">\n      <img src=\"./assets/icons/arrow.svg\" (click)=\"changeSide(sideNumber-1)\" alt=\"\">\n    </div>\n    <div class=\"container-canvas\">\n      <canvas id=\"c\" width=\"550\" height=\"280\" style=\"z-index: 1;\">\n      </canvas>\n      <div class=\"list-side\" *ngIf=\"switch === 'shoes'\">\n        <div *ngFor=\"let side of listSide; let i = index\" class=\"item\">\n          <img [src]=\"side.img\" (click)=\"changeSide(i)\" alt=\"\">\n        </div>\n      </div>\n      <div class=\"list-side\" *ngIf=\"switch === 'zones'\">\n        <div *ngFor=\"let side of listZones; let i = index\" class=\"item zone\">\n          <img [src]=\"side.imgZone\" (click)=\"changeSide(i)\" alt=\"\">\n        </div>\n      </div>\n    </div>\n    <div class=\"change-button\">\n      <img src=\"./assets/icons/arrow.svg\" (click)=\"changeSide(sideNumber+1)\" alt=\"\">\n    </div>\n    <div class=\"switch-zone\" *ngIf=\"this.choice.type === 'af1'\">\n      <div class=\"switch-item\" [ngClass]=\"{'active': switch === 'shoes'}\" (click)=\"switchZone('shoes')\">\n        <span>\n          Chaussure\n        </span>\n      </div>\n      <div class=\"switch-item\" [ngClass]=\"{'active': switch === 'zones'}\" (click)=\"switchZone('zones')\">\n        <span>\n          Zones\n        </span>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"item-selected\">\n    <div class=\"category-item\">\n      <div class=\"delete-icon\" *ngIf=\"activeObject\" (click)=\"deleteObject()\">\n        <img src=\"./assets/icons/delete.svg\" alt=\"\">\n      </div>\n      <span class=\"title\" *ngIf=\"generalDisplay\" contenteditable=\"true\" (blur)=\"blur($event)\">{{ activeObject.text }}</span>\n      <span class=\"title\" *ngIf=\"imgDisplay\">Image</span>\n    </div>\n    <div id=\"i-text\" class=\"item-panel\">\n      <div id=\"general-controls\" *ngIf=\"generalDisplay\">\n        <div class=\"style-panel\">\n          <span>Style</span>\n          <div id=\"text-controls-additional\">\n            <input type='checkbox' [(ngModel)]=\"isBold\" (ngModelChange)=\"textTransform()\" name='fonttype' id=\"text-cmd-bold\">\n            <label class=\"text-control\" for=\"text-cmd-bold\">\n              <b>B</b>\n            </label>\n            <input type='checkbox' [(ngModel)]=\"isItalic\" (ngModelChange)=\"textTransform()\" name='fonttype' id=\"text-cmd-italic\">\n            <label class=\"text-control\" for=\"text-cmd-italic\">\n              <i>I</i>\n            </label>\n            <input type='checkbox' name='fonttype' id=\"text-cmd-underline\">\n            <label class=\"text-control\" for=\"text-cmd-underline\">\n              <span style=\"text-decoration:underline\">U</span>\n            </label>\n            <select id=\"font-family\" (change)=\"changeFont($event.target.value)\">\n              <option value=\"arial\">Arial</option>\n              <option value=\"helvetica\">Helvetica</option>\n              <option value=\"comic sans ms\">Comic Sans MS</option>\n              <option value=\"anton\" selected>Anton</option>\n            </select>\n          </div>\n        </div>\n        <div id=\"color-controls\">\n          <span>Couleur</span>\n          <div id=\"color-list\">\n            <div *ngFor=\"let item of colorList\" class=\"color-item\" [id]=\"item\" [ngClass]=\"{active: activeColor === '#'+item}\" [ngStyle]=\"{'background-color': '#'+item}\" (click)=\"changeColor(item)\"></div>\n          </div>\n        </div>\n      </div>\n      <div id=\"image\" class=\"item-panel\" *ngIf=\"imgDisplay\">\n        <div class=\"style-panel\">\n          <span>Style</span>\n          <div id=\"img-controls-additional\">\n            <div (click)=\"bringForward()\">En avant </div>\n            <div (click)=\"bringBackward()\"> En arriere</div>\n            <!-- <div (click)=\"flipX()\">Flip X</div>\n            <div (click)=\"flipY()\">Flip Y</div> -->\n          </div>\n        </div>\n        <div id=\"color-controls\">\n          <span>Couleur</span>\n          <div id=\"color-list\">\n            <div *ngFor=\"let item of imgLib?.colors\" class=\"color-item\" [ngClass]=\"{active: activeObject.color === item.color}\" [ngStyle]=\"{'background-color': '#'+item.color}\" (click)=\"changeColorImg(item)\"></div>\n          </div>\n        </div>\n      </div>\n      <div id=\"color-controls\" *ngIf=\"backgroundColorDisplay\">\n        <span>Couleur</span>\n        <div id=\"color-list\">\n          <div *ngFor=\"let item of colorList\" class=\"color-item\" [id]=\"item\" [ngStyle]=\"{'background-color': '#'+item}\" (click)=\"changeBg(item)\"></div>\n        </div>\n      </div>\n    </div>\n    <div class=\"price-panel\">\n        <div>\n            <span class=\"title\">\n              Total :\n              {{ totalPrice }}€\n            </span>\n        </div>\n        <div class=\"button-cart\" [ngClass]=\"{'disabled': totalPrice === 0}\"  (click)=\"respond()\">\n            Ajouter au panier\n        </div>\n    </div>\n  </div>"
 
 /***/ }),
 
@@ -498,6 +498,7 @@ var Step2Component = /** @class */ (function () {
         this.colorList = ["131313", "FFFFFF", "192F97", "D41C3B", "FF9090", "A92355", "E35110"];
         this.generalDisplay = false;
         this.imgDisplay = false;
+        this.backgroundColorDisplay = false;
         this.isBold = false;
         this.isItalic = false;
         this.side = "";
@@ -533,38 +534,40 @@ var Step2Component = /** @class */ (function () {
                 json: '{"version":"4.2.0","objects":[]}'
             }
         ];
-        this.listZones = [
-            {
-                imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgBande.png",
-                img: "./assets/zones/" + this.choice.type + "/svg/bande.svg",
-                svg: "",
-                json: '{"version":"4.2.0","objects":[]}'
-            },
-            {
-                imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgEmpeigne.png",
-                img: "./assets/zones/" + this.choice.type + "/svg/empeigne.svg",
-                svg: "",
-                json: '{"version":"4.2.0","objects":[]}'
-            },
-            {
-                imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgPointe.png",
-                img: "./assets/zones/" + this.choice.type + "/svg/pointe.svg",
-                svg: "",
-                json: '{"version":"4.2.0","objects":[]}'
-            },
-            {
-                imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgSwoosh.png",
-                img: "./assets/zones/" + this.choice.type + "/svg/swoosh.svg",
-                svg: "",
-                json: '{"version":"4.2.0","objects":[]}'
-            },
-            {
-                imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgTrim.png",
-                img: "./assets/zones/" + this.choice.type + "/svg/trim.svg",
-                svg: "",
-                json: '{"version":"4.2.0","objects":[]}'
-            }
-        ];
+        if (this.choice.type === "af1") {
+            this.listZones = [
+                {
+                    imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgBande.png",
+                    img: "./assets/zones/" + this.choice.type + "/svg/bande.svg",
+                    svg: "",
+                    json: '{"version":"4.2.0","objects":[]}'
+                },
+                {
+                    imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgEmpeigne.png",
+                    img: "./assets/zones/" + this.choice.type + "/svg/empeigne.svg",
+                    svg: "",
+                    json: '{"version":"4.2.0","objects":[]}'
+                },
+                {
+                    imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgPointe.png",
+                    img: "./assets/zones/" + this.choice.type + "/svg/pointe.svg",
+                    svg: "",
+                    json: '{"version":"4.2.0","objects":[]}'
+                },
+                {
+                    imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgSwoosh.png",
+                    img: "./assets/zones/" + this.choice.type + "/svg/swoosh.svg",
+                    svg: "",
+                    json: '{"version":"4.2.0","objects":[]}'
+                },
+                {
+                    imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgTrim.png",
+                    img: "./assets/zones/" + this.choice.type + "/svg/trim.svg",
+                    svg: "",
+                    json: '{"version":"4.2.0","objects":[]}'
+                }
+            ];
+        }
         this.init();
     };
     Step2Component.prototype.ngAfterViewInit = function () {
@@ -600,7 +603,6 @@ var Step2Component = /** @class */ (function () {
         }, 50);
     };
     Step2Component.prototype.init = function () {
-        // this.side = this.listSide[0].img
         this.displayJson(0);
     };
     Step2Component.prototype.changeSide = function (src) {
@@ -671,20 +673,22 @@ var Step2Component = /** @class */ (function () {
             this.loadJson(src);
         }
     };
-    Step2Component.prototype.changeBg = function () {
+    Step2Component.prototype.changeBg = function (color) {
         var that = this;
         this.canvas.getObjects().forEach(function (o) {
             if (o.id === "bg") {
-                o.set("fill", "#045698");
+                o.set("fill", "#" + color);
                 that.canvas.renderAll();
             }
         });
     };
     Step2Component.prototype.loadJson = function (src) {
         if (this.switch === "shoes") {
+            console.log('this.listSide[src].json', this.listSide[src].json);
             this.canvas.loadFromJSON(this.listSide[src].json);
         }
         if (this.switch === "zones") {
+            console.log('this.listZones[src].json', this.listZones[src].json);
             this.canvas.loadFromJSON(this.listZones[src].json);
         }
         this.canvas.renderAll();
@@ -721,7 +725,9 @@ var Step2Component = /** @class */ (function () {
     };
     Step2Component.prototype.exportToSvg = function () {
         var exportSvg = this.canvas.toSVG();
-        var json_data = JSON.stringify(this.canvas.toObject(['price', 'id']));
+        var exportData = this.canvas.toDataURL();
+        console.log('exportData', exportData);
+        var json_data = JSON.stringify(this.canvas.toObject(['price', 'id', 'selectable']));
         if (this.switch === "shoes") {
             this.listSide[this.sideNumber].svg = exportSvg;
             this.listSide[this.sideNumber].json = json_data;
@@ -748,7 +754,7 @@ var Step2Component = /** @class */ (function () {
             oImg.globalCompositeOperation = 'source-atop';
             _this.canvas.add(oImg).renderAll();
             _this.totalPrice += oImg.price;
-        });
+        }, null, { crossOrigin: 'anonymous' });
     };
     Step2Component.prototype.blur = function (event) {
         this.canvas.getActiveObject().set("text", event.srcElement.innerText);
@@ -836,7 +842,13 @@ var Step2Component = /** @class */ (function () {
         this.canvas.getActiveObject().set("fontFamily", event);
         this.canvas.renderAll();
     };
+    Step2Component.prototype.displayBackgroundChoice = function () {
+        this.generalDisplay = false;
+        this.imgDisplay = false;
+        this.backgroundColorDisplay = true;
+    };
     Step2Component.prototype.switchDisplay = function (obj) {
+        this.backgroundColorDisplay = false;
         switch (this.objType) {
             case 'i-text':
                 var obj = this.canvas.getActiveObject();
@@ -947,6 +959,9 @@ var Step2Component = /** @class */ (function () {
             maxWidth: '70vw',
             data: {
             // item: item, 
+            },
+            position: {
+                top: '70px',
             }
         });
         dialogRef.afterClosed().subscribe(function (result) {
@@ -960,6 +975,9 @@ var Step2Component = /** @class */ (function () {
             height: '100%',
             data: {
             // item: item, 
+            },
+            position: {
+                top: '70px',
             }
         });
         dialogRef.afterClosed().subscribe(function (result) {
@@ -972,6 +990,9 @@ var Step2Component = /** @class */ (function () {
             maxWidth: '70vw',
             data: {
             // item: item, 
+            },
+            position: {
+                top: '70px',
             }
         });
         dialogRef.afterClosed().subscribe(function (result) {

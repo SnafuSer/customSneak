@@ -18,17 +18,13 @@
         <img src="./assets/icons/text.svg" alt="">
         <span>Texte</span>
       </div>
-      <div class="button" *ngIf="switch === 'zones'" (click)="changeBg()">
+      <div class="button" *ngIf="switch === 'zones'" (click)="displayBackgroundChoice()">
         <img src="./assets/icons/bg.svg" alt="">
         <span>Fond</span>
       </div>
       <div class="button" (click)="openModalLib()">
         <img src="./assets/icons/image.svg" alt="">
         <span>Design</span>
-      </div>
-      <div class="button" (click)="openModalNike()">
-        <img src="./assets/icons/image.svg" alt="">
-        <span>Nike</span>
       </div>
       <div class="button" (click)="openModalImport()">
         <img src="./assets/icons/upload.svg" alt="">
@@ -41,8 +37,6 @@
     <div class="container-canvas">
       <canvas id="c" width="550" height="280" style="z-index: 1;">
       </canvas>
-      <!-- <div class="side-container" [ngStyle]="{'background-image': 'url(' + side + ')'}">
-      </div> -->
       <div class="list-side" *ngIf="switch === 'shoes'">
         <div *ngFor="let side of listSide; let i = index" class="item">
           <img [src]="side.img" (click)="changeSide(i)" alt="">
@@ -57,7 +51,7 @@
     <div class="change-button">
       <img src="./assets/icons/arrow.svg" (click)="changeSide(sideNumber+1)" alt="">
     </div>
-    <div class="switch-zone">
+    <div class="switch-zone" *ngIf="this.choice.type === 'af1'">
       <div class="switch-item" [ngClass]="{'active': switch === 'shoes'}" (click)="switchZone('shoes')">
         <span>
           Chaussure
@@ -126,6 +120,12 @@
           <div id="color-list">
             <div *ngFor="let item of imgLib?.colors" class="color-item" [ngClass]="{active: activeObject.color === item.color}" [ngStyle]="{'background-color': '#'+item.color}" (click)="changeColorImg(item)"></div>
           </div>
+        </div>
+      </div>
+      <div id="color-controls" *ngIf="backgroundColorDisplay">
+        <span>Couleur</span>
+        <div id="color-list">
+          <div *ngFor="let item of colorList" class="color-item" [id]="item" [ngStyle]="{'background-color': '#'+item}" (click)="changeBg(item)"></div>
         </div>
       </div>
     </div>

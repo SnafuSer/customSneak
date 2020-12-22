@@ -40,6 +40,7 @@ export class Step2Component {
   public colorList = ["131313", "FFFFFF", "192F97", "D41C3B", "FF9090", "A92355", "E35110"]
   public generalDisplay = false
   public imgDisplay = false
+  public backgroundColorDisplay = false
   public imgLib: any;
   public isBold = false
   public isItalic = false
@@ -79,38 +80,40 @@ export class Step2Component {
         json: '{"version":"4.2.0","objects":[]}'
       }
     ]
-    this.listZones = [
-      {
-        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgBande.png",
-        img: "./assets/zones/" + this.choice.type + "/svg/bande.svg",
-        svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
-      },
-      {
-        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgEmpeigne.png",
-        img: "./assets/zones/" + this.choice.type + "/svg/empeigne.svg",
-        svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
-      },
-      {
-        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgPointe.png",
-        img: "./assets/zones/" + this.choice.type + "/svg/pointe.svg",
-        svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
-      },
-      {
-        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgSwoosh.png",
-        img: "./assets/zones/" + this.choice.type + "/svg/swoosh.svg",
-        svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
-      },
-      {
-        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgTrim.png",
-        img: "./assets/zones/" + this.choice.type + "/svg/trim.svg",
-        svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
-      }
-    ]
+    if (this.choice.type === "af1") {
+      this.listZones = [
+        {
+          imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgBande.png",
+          img: "./assets/zones/" + this.choice.type + "/svg/bande.svg",
+          svg: "",
+          json: '{"version":"4.2.0","objects":[]}'
+        },
+        {
+          imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgEmpeigne.png",
+          img: "./assets/zones/" + this.choice.type + "/svg/empeigne.svg",
+          svg: "",
+          json: '{"version":"4.2.0","objects":[]}'
+        },
+        {
+          imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgPointe.png",
+          img: "./assets/zones/" + this.choice.type + "/svg/pointe.svg",
+          svg: "",
+          json: '{"version":"4.2.0","objects":[]}'
+        },
+        {
+          imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgSwoosh.png",
+          img: "./assets/zones/" + this.choice.type + "/svg/swoosh.svg",
+          svg: "",
+          json: '{"version":"4.2.0","objects":[]}'
+        },
+        {
+          imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgTrim.png",
+          img: "./assets/zones/" + this.choice.type + "/svg/trim.svg",
+          svg: "",
+          json: '{"version":"4.2.0","objects":[]}'
+        }
+      ]
+    }
     this.init()
   }
   ngAfterViewInit() {
@@ -123,7 +126,6 @@ export class Step2Component {
     this.canvas.on('selection:updated', (e) => {
       this.onObjectUpdated()
     });
-    
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
@@ -145,12 +147,10 @@ export class Step2Component {
     }, 50);
   }
   init() {
-    // this.side = this.listSide[0].img
     this.displayJson(0)
   }
   changeSide(src) {
     async.waterfall([
-
       callback => {
         this.exportToSvg()
         let ctx = this.canvas.getContext("2d");
@@ -162,7 +162,6 @@ export class Step2Component {
         this.displayJson(src)
         callback()
       },
-
     ], (error) => {
       if (error) { return console.log('error', error)  }
     })
@@ -212,20 +211,23 @@ export class Step2Component {
         this.loadJson(src)
     }
   }
-  changeBg() {
+  changeBg(color) {
     let that = this
     this.canvas.getObjects().forEach(function(o) {
       if(o.id === "bg") {
-        o.set("fill", "#045698");
+        o.set("fill", "#"+color);
         that.canvas.renderAll();
       }
     })
   }
+
   loadJson(src) {
     if (this.switch === "shoes") {
+      console.log('this.listSide[src].json', this.listSide[src].json)
       this.canvas.loadFromJSON(this.listSide[src].json);  
     }
     if (this.switch === "zones") {
+      console.log('this.listZones[src].json', this.listZones[src].json)
       this.canvas.loadFromJSON(this.listZones[src].json);  
     }
     this.canvas.renderAll();
@@ -263,7 +265,9 @@ export class Step2Component {
   }
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
-    var json_data = JSON.stringify(this.canvas.toObject(['price', 'id'])); 
+    var exportData = this.canvas.toDataURL()
+    console.log('exportData', exportData)
+    var json_data = JSON.stringify(this.canvas.toObject(['price', 'id', 'selectable'])); 
     if (this.switch === "shoes") {
       this.listSide[this.sideNumber].svg = exportSvg
       this.listSide[this.sideNumber].json = json_data
@@ -289,7 +293,7 @@ export class Step2Component {
       oImg.globalCompositeOperation = 'source-atop';
       this.canvas.add(oImg).renderAll();
       this.totalPrice += oImg.price
-    });
+    }, null, {crossOrigin: 'anonymous'});
   }
   blur(event) {
     this.canvas.getActiveObject().set("text", event.srcElement.innerText);
@@ -372,8 +376,13 @@ export class Step2Component {
     this.canvas.getActiveObject().set("fontFamily", event);
     this.canvas.renderAll();
   }
-  
+  displayBackgroundChoice() {
+    this.generalDisplay = false
+    this.imgDisplay = false
+    this.backgroundColorDisplay = true
+  }
   switchDisplay(obj) {
+    this.backgroundColorDisplay = false
     switch (this.objType) {
       case 'i-text':
         var obj = this.canvas.getActiveObject()
@@ -470,6 +479,9 @@ export class Step2Component {
       maxWidth: '70vw',
       data: {
         // item: item, 
+      },
+      position: {
+        top: '70px',
       }
     });
 
@@ -485,6 +497,9 @@ export class Step2Component {
       height: '100%',
       data: {
         // item: item, 
+      },
+      position: {
+        top: '70px',
       }
     });
 
@@ -499,6 +514,9 @@ export class Step2Component {
       maxWidth: '70vw',
       data: {
         // item: item, 
+      },
+      position: {
+        top: '70px',
       }
     });
 
