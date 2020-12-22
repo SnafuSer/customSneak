@@ -1,0 +1,12 @@
+<svg width="700" height="197" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2262 639">
+    <defs>
+        <path stroke="blue" fill="purple" id="rect" d="M772.322 323.515C346.699 435.894 331.093 157.501 376.493 4.25678C240.294 58.1759 -25.2946 223.906 1.94523 455.475C29.1851 687.044 407.705 651.287 593.56 604.462C1506.09 400.137 2086.08 156.082 2262 59.5949C2250.65 46.8245 2215.18 24.6893 2164.11 38.311C2113.03 51.9327 2060.54 18.446 2040.68 0L2027.91 4.25678C1850.85 75.7706 1117.08 246.893 772.322 323.515Z"/>
+        <clipPath id="clip">
+            <use xlink:href="#rect"/>
+        </clipPath>
+    </defs>
+    <use xlink:href="#rect"/>
+    <g clip-path="url(#clip)">
+        <image x="50" y="0" width="680" height="680" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  xlink:href="https://drawinghowtos.com/wp-content/uploads/2019/11/unicorn-colored.png"></image>
+    </g>
+</svg>

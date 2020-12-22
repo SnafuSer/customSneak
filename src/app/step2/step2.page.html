@@ -14,13 +14,21 @@
 </div>
 <div class="container-models">
     <div class="controls">
-      <div id="add" class="button" (click)="addText()">
+      <div id="add" class="button" *ngIf="switch !== 'zones'" (click)="addText()">
         <img src="./assets/icons/text.svg" alt="">
         <span>Texte</span>
+      </div>
+      <div class="button" *ngIf="switch === 'zones'" (click)="changeBg()">
+        <img src="./assets/icons/bg.svg" alt="">
+        <span>Fond</span>
       </div>
       <div class="button" (click)="openModalLib()">
         <img src="./assets/icons/image.svg" alt="">
         <span>Design</span>
+      </div>
+      <div class="button" (click)="openModalNike()">
+        <img src="./assets/icons/image.svg" alt="">
+        <span>Nike</span>
       </div>
       <div class="button" (click)="openModalImport()">
         <img src="./assets/icons/upload.svg" alt="">
@@ -33,16 +41,33 @@
     <div class="container-canvas">
       <canvas id="c" width="550" height="280" style="z-index: 1;">
       </canvas>
-      <div class="side-container" [ngStyle]="{'background-image': 'url(' + side + ')'}">
-      </div>
-      <div class="list-side">
+      <!-- <div class="side-container" [ngStyle]="{'background-image': 'url(' + side + ')'}">
+      </div> -->
+      <div class="list-side" *ngIf="switch === 'shoes'">
         <div *ngFor="let side of listSide; let i = index" class="item">
           <img [src]="side.img" (click)="changeSide(i)" alt="">
+        </div>
+      </div>
+      <div class="list-side" *ngIf="switch === 'zones'">
+        <div *ngFor="let side of listZones; let i = index" class="item zone">
+          <img [src]="side.imgZone" (click)="changeSide(i)" alt="">
         </div>
       </div>
     </div>
     <div class="change-button">
       <img src="./assets/icons/arrow.svg" (click)="changeSide(sideNumber+1)" alt="">
+    </div>
+    <div class="switch-zone">
+      <div class="switch-item" [ngClass]="{'active': switch === 'shoes'}" (click)="switchZone('shoes')">
+        <span>
+          Chaussure
+        </span>
+      </div>
+      <div class="switch-item" [ngClass]="{'active': switch === 'zones'}" (click)="switchZone('zones')">
+        <span>
+          Zones
+        </span>
+      </div>
     </div>
   </div>
   

@@ -2,12 +2,20 @@ import { Component, HostListener } from '@angular/core';
 import { fabric } from 'fabric';
 import { ModalLibDialog } from "../../components/modals/modalLib/modalLib";
 import { ModalImportDialog } from "../../components/modals/modalImport/modalImport";
+import { ModalNikeDialog } from "../../components/modals/modalNike/modalNike";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AssetsLibService } from '../../services/assetsLib.service'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AppComponent } from '../app.component'
+import * as async from "async";
 
 export interface SideShoes {
+  img: string;
+  svg: string;
+  json: string;
+}
+export interface Zones {
+  imgZone: string;
   img: string;
   svg: string;
   json: string;
@@ -36,8 +44,10 @@ export class Step2Component {
   public isBold = false
   public isItalic = false
   public listSide: Array<SideShoes>;
+  public listZones: Array<Zones>;
   public objType: string;
   public side: string = "";
+  public switch: string = "shoes";
   public sideNumber: number = 0;
   public totalPrice: number = 0;
   public loading: boolean = false
@@ -65,6 +75,38 @@ export class Step2Component {
       },
       {
         img: "./assets/shoes/" + this.choice.type + "/back.png",
+        svg: "",
+        json: '{"version":"4.2.0","objects":[]}'
+      }
+    ]
+    this.listZones = [
+      {
+        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgBande.png",
+        img: "./assets/zones/" + this.choice.type + "/svg/bande.svg",
+        svg: "",
+        json: '{"version":"4.2.0","objects":[]}'
+      },
+      {
+        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgEmpeigne.png",
+        img: "./assets/zones/" + this.choice.type + "/svg/empeigne.svg",
+        svg: "",
+        json: '{"version":"4.2.0","objects":[]}'
+      },
+      {
+        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgPointe.png",
+        img: "./assets/zones/" + this.choice.type + "/svg/pointe.svg",
+        svg: "",
+        json: '{"version":"4.2.0","objects":[]}'
+      },
+      {
+        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgSwoosh.png",
+        img: "./assets/zones/" + this.choice.type + "/svg/swoosh.svg",
+        svg: "",
+        json: '{"version":"4.2.0","objects":[]}'
+      },
+      {
+        imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgTrim.png",
+        img: "./assets/zones/" + this.choice.type + "/svg/trim.svg",
         svg: "",
         json: '{"version":"4.2.0","objects":[]}'
       }
@@ -103,23 +145,89 @@ export class Step2Component {
     }, 50);
   }
   init() {
-    this.side = this.listSide[0].img
-    this.loadJson(0)
+    // this.side = this.listSide[0].img
+    this.displayJson(0)
   }
   changeSide(src) {
-    this.exportToSvg()
-    let ctx = this.canvas.getContext("2d");
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    setTimeout(() => {
-      if (src === 4) src = 0
-      if (src < 0) src = 3
-      this.side = this.listSide[src].img
-      this.sideNumber = src
-      this.loadJson(src)
-    }, 10);
+    async.waterfall([
+
+      callback => {
+        this.exportToSvg()
+        let ctx = this.canvas.getContext("2d");
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        callback()
+      },
+      
+      (callback) => {
+        this.displayJson(src)
+        callback()
+      },
+
+    ], (error) => {
+      if (error) { return console.log('error', error)  }
+    })
+  }
+  displayJson(src) {
+    if (this.switch === "shoes") {
+        if (src === 4) src = 0
+        if (src < 0) src = 3
+        if (this.listSide[src].svg === "") {
+          let that = this
+          fabric.Image.fromURL(this.listSide[src].img, function (objects, options) {
+            let background = objects;
+            let ratioHeight = that.canvas.height / background.getScaledHeight()
+            let ratioWidth = that.canvas.width / background.getScaledWidth()
+            let ratio = Math.min(ratioHeight, ratioWidth)
+            background.scale(ratio);
+            background.set({
+                selectable: false,
+                id: "bg",
+            });
+            that.canvas.centerObject(background);
+            that.canvas.add(background);
+            that.canvas.renderAll();
+          });
+        }     
+        this.sideNumber = src
+        this.loadJson(src)
+    }
+    if (this.switch === "zones") {
+        if (src === 5) src = 0
+        if (src < 0) src = 4
+        if (this.listZones[src].svg === "") {
+          let that = this
+          fabric.loadSVGFromURL(this.listZones[src].img, function (objects, options) {
+            let background = objects;
+            var loadedObjects = fabric.util.groupSVGElements(background);
+            loadedObjects.set({
+                selectable: false,
+                id: "bg",
+            });
+            that.canvas.centerObject(loadedObjects);
+            that.canvas.add(loadedObjects);
+            that.canvas.renderAll();
+          });
+        }        
+        this.sideNumber = src
+        this.loadJson(src)
+    }
+  }
+  changeBg() {
+    let that = this
+    this.canvas.getObjects().forEach(function(o) {
+      if(o.id === "bg") {
+        o.set("fill", "#045698");
+        that.canvas.renderAll();
+      }
+    })
   }
   loadJson(src) {
-    this.canvas.loadFromJSON(this.listSide[src].json);  
+    if (this.switch === "shoes") {
+      this.canvas.loadFromJSON(this.listSide[src].json);  
+    }
+    if (this.switch === "zones") {
+      this.canvas.loadFromJSON(this.listZones[src].json);  
+    }
     this.canvas.renderAll();
   }
   // add rectangle
@@ -149,14 +257,21 @@ export class Step2Component {
       fontFamily: "anton",
       price: 7
     });
+    itext.globalCompositeOperation = 'source-atop';
     this.totalPrice += itext.price
     this.canvas.add(itext);
   }
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
     var json_data = JSON.stringify(this.canvas.toObject(['price', 'id'])); 
-    this.listSide[this.sideNumber].svg = exportSvg
-    this.listSide[this.sideNumber].json = json_data
+    if (this.switch === "shoes") {
+      this.listSide[this.sideNumber].svg = exportSvg
+      this.listSide[this.sideNumber].json = json_data
+    }
+    if (this.switch === "zones") {
+      this.listZones[this.sideNumber].svg = exportSvg
+      this.listZones[this.sideNumber].json = json_data
+    }
   }
   // use modal images
   addStockImg(e) {
@@ -171,6 +286,7 @@ export class Step2Component {
         flipX: false,
         flipY: false,
       });
+      oImg.globalCompositeOperation = 'source-atop';
       this.canvas.add(oImg).renderAll();
       this.totalPrice += oImg.price
     });
@@ -195,6 +311,7 @@ export class Step2Component {
           flipX: false,
           flipY: false,
         })
+        oImg.globalCompositeOperation = 'source-atop';
         this.canvas.add(oImg).renderAll();
         this.totalPrice += oImg.price
       });
@@ -278,6 +395,27 @@ export class Step2Component {
         console.log(`Sorry, we are out of`);
     }
   }
+  switchZone(zone) {
+    async.waterfall([
+      callback => {
+        this.exportToSvg()
+        callback()
+      },
+      
+      (callback) => {
+        this.switch = zone
+        callback()
+      },
+
+      (callback) => {
+        this.side = null
+        this.displayJson(0)
+        callback()
+      },
+    ], (error) => {
+      if (error) { return console.log('error', error)  }
+    })
+  }
   bringForward() {
     let el = this.canvas.getActiveObject()
     this.canvas.bringForward(el)
@@ -330,6 +468,21 @@ export class Step2Component {
 
     const dialogRef = this.dialog.open(ModalLibDialog, {
       maxWidth: '70vw',
+      data: {
+        // item: item, 
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.addStockImg(result)
+    });
+
+  }
+  openModalNike() {
+
+    const dialogRef = this.dialog.open(ModalNikeDialog, {
+      width: '100%',
+      height: '100%',
       data: {
         // item: item, 
       }
