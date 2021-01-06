@@ -79,6 +79,54 @@ export class AssetsLibService {
             ]
           },
          {
+            img: "./assets/illustration/shoes.png",
+            name: "shoes",
+            category: "girly",
+            price: 5,
+            id: "22",
+            colors: []
+          },
+         {
+            img: "./assets/illustration/empeigne.svg",
+            name: "empeigne",
+            category: "girly",
+            price: 5,
+            id: "23",
+            colors: []
+          },
+         {
+            img: "./assets/illustration/pointe.svg",
+            name: "pointe",
+            category: "girly",
+            price: 5,
+            id: "24",
+            colors: []
+          },
+         {
+            img: "./assets/illustration/swoosh.svg",
+            name: "swoosh",
+            category: "girly",
+            price: 5,
+            id: "25",
+            colors: []
+          },
+         {
+            img: "./assets/illustration/trim.svg",
+            name: "trim",
+            category: "girly",
+            price: 5,
+            id: "26",
+            colors: []
+          },
+         {
+            img: "./assets/illustration/bande.svg",
+            name: "bande",
+            category: "girly",
+            price: 5,
+            id: "27",
+            colors: []
+          },
+         {
             img: "https://dbdzm869oupei.cloudfront.net/img/sticker/preview/12597.png",
             name: "Fleur de cerisier",
             category: "girly",

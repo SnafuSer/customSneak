@@ -39,7 +39,40 @@
     flex-direction: row;
     padding: 16px;
 }
-
+.bg-zone {
+    position: absolute;
+    width: 550px;
+    height: 280px;
+    overflow: hidden;
+}
+.bg-imagebande {
+    position: relative;
+    height: auto;
+    width: 1110px;
+    left: -606px;
+    top: -80px;
+}
+.bg-imagepointe {
+    position: relative;
+    height: auto;
+    width: 1144px;
+    left: -19px;
+    top: -181px;
+}
+.bg-imageswoosh {
+    position: relative;
+    height: auto;
+    width: 1185px;
+    left: -572px;
+    top: -104px;
+}
+.bg-imagetrim {
+    position: relative;
+    height: auto;
+    width: 1175px;
+    left: -396px;
+    top: -129px;
+}
 .change-button {
     margin: auto auto;
     cursor: pointer;
@@ -463,4 +496,38 @@ $width: 100px;
   90% {
     stroke: $yellow;
   }
+}
+
+
+
+@media only screen and (max-width: 768px){
+
+    .container-canvas {
+        transform: scale(.65);
+        margin-left: -110px;
+        margin-top: -30px;
+        order: 2;
+    }
+    .container-models {
+        flex-direction: column;
+    }
+    .controls {
+        flex-direction: row;
+        width: calc(3 * 80px);
+        height: 80px;
+        margin-top: -50px;
+        order: 3;
+        .button {
+            margin: 0 auto;
+        }
+    }
+    .change-button {
+        display: none;
+    }
+    .switch-zone {
+        flex-direction: row;
+        width: auto;
+        height: 50px;
+        order: 1;
+    }
 }

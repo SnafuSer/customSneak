@@ -8,17 +8,21 @@ import { AssetsLibService } from '../../services/assetsLib.service'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AppComponent } from '../app.component'
 import * as async from "async";
+import { BADNAME } from 'dns';
 
 export interface SideShoes {
   img: string;
   svg: string;
   json: string;
+  b64: string;
 }
 export interface Zones {
+  name: string;
   imgZone: string;
   img: string;
   svg: string;
   json: string;
+  b64: string;
 }
 
 @Component({
@@ -62,60 +66,81 @@ export class Step2Component {
       {
         img: "./assets/shoes/" + this.choice.type + "/out.png",
         svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
+        json: '{"version":"4.2.0","objects":[]}',
+        b64: ""
       },
       {
         img: "./assets/shoes/" + this.choice.type + "/in.png",
         svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
+        json: '{"version":"4.2.0","objects":[]}',
+        b64: ""
       },
       {
         img: "./assets/shoes/" + this.choice.type + "/top.png",
         svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
+        json: '{"version":"4.2.0","objects":[]}',
+        b64: ""
       },
       {
         img: "./assets/shoes/" + this.choice.type + "/back.png",
         svg: "",
-        json: '{"version":"4.2.0","objects":[]}'
+        json: '{"version":"4.2.0","objects":[]}',
+        b64: ""
       }
     ]
     if (this.choice.type === "af1") {
       this.listZones = [
-        {
+        { 
+          name: "bande",
           imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgBande.png",
-          img: "./assets/zones/" + this.choice.type + "/svg/bande.svg",
+          img: "./assets/zones/" + this.choice.type + "/svg/bande.png",
           svg: "",
-          json: '{"version":"4.2.0","objects":[]}'
+          json: '{"version":"4.2.0","objects":[]}',
+          b64: ""
         },
+        // {
+        //   name: "empeigne",
+        //   imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgEmpeigne.png",
+        //   img: "./assets/zones/" + this.choice.type + "/svg/empeigne.svg",
+        //   svg: "",
+        //   json: '{"version":"4.2.0","objects":[]}',
+        //   b64: ""
+        // },
         {
-          imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgEmpeigne.png",
-          img: "./assets/zones/" + this.choice.type + "/svg/empeigne.svg",
-          svg: "",
-          json: '{"version":"4.2.0","objects":[]}'
-        },
-        {
+          name: "pointe",
           imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgPointe.png",
-          img: "./assets/zones/" + this.choice.type + "/svg/pointe.svg",
+          img: "./assets/zones/" + this.choice.type + "/svg/pointe.png",
           svg: "",
-          json: '{"version":"4.2.0","objects":[]}'
+          json: '{"version":"4.2.0","objects":[]}',
+          b64: ""
         },
         {
+          name: "swoosh",
           imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgSwoosh.png",
-          img: "./assets/zones/" + this.choice.type + "/svg/swoosh.svg",
+          img: "./assets/zones/" + this.choice.type + "/svg/swoosh.png",
           svg: "",
-          json: '{"version":"4.2.0","objects":[]}'
+          json: '{"version":"4.2.0","objects":[]}',
+          b64: ""
         },
         {
+          name: "trim",
           imgZone: "./assets/zones/" + this.choice.type + "/imgZone/imgTrim.png",
-          img: "./assets/zones/" + this.choice.type + "/svg/trim.svg",
+          img: "./assets/zones/" + this.choice.type + "/svg/trim.png",
           svg: "",
-          json: '{"version":"4.2.0","objects":[]}'
+          json: '{"version":"4.2.0","objects":[]}',
+          b64: ""
         }
       ]
+      this.jsonZone = {
+        "version":"4.2.0","objects":[
+        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":12.4,"top":120.79,"width":550,"height":194,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.49,"scaleY":0.49,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"pointe","selectable":false,"src":"http://localhost:4000/assets/illustration/pointe.svg","crossOrigin":null,"filters":[]},
+        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":221.64,"top":76.15,"width":394,"height":280,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.47,"scaleY":0.47,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"trim","selectable":false,"src":"http://localhost:4000/assets/illustration/trim.svg","crossOrigin":null,"filters":[]},
+        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":324.41,"top":56.44,"width":447,"height":281,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.49,"scaleY":0.49,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"bande","selectable":false,"src":"http://localhost:4000/assets/illustration/bande.svg","crossOrigin":null,"filters":[]},
+        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":243.21,"top":90,"width":550,"height":159,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.5,"scaleY":0.5,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"swoosh","selectable":false,"src":"http://localhost:4000/assets/illustration/swoosh.svg","crossOrigin":null,"filters":[]}]}
     }
     this.init()
   }
+  public jsonZone
   ngAfterViewInit() {
     this.canvas.on('selection:created', (e) => {
       this.onObjectSelected()
@@ -191,19 +216,22 @@ export class Step2Component {
         this.loadJson(src)
     }
     if (this.switch === "zones") {
-        if (src === 5) src = 0
-        if (src < 0) src = 4
+        if (src === 4) src = 0
+        if (src < 0) src = 3
         if (this.listZones[src].svg === "") {
           let that = this
-          fabric.loadSVGFromURL(this.listZones[src].img, function (objects, options) {
+          fabric.Image.fromURL(this.listZones[src].img, function (objects, options) {
             let background = objects;
-            var loadedObjects = fabric.util.groupSVGElements(background);
-            loadedObjects.set({
+            let ratioHeight = that.canvas.height / background.getScaledHeight()
+            let ratioWidth = that.canvas.width / background.getScaledWidth()
+            let ratio = Math.min(ratioHeight, ratioWidth)
+            background.scale(ratio);
+            background.set({
                 selectable: false,
-                id: "bg",
+                id: "bgZone" + src,
             });
-            that.canvas.centerObject(loadedObjects);
-            that.canvas.add(loadedObjects);
+            that.canvas.centerObject(background);
+            that.canvas.add(background);
             that.canvas.renderAll();
           });
         }        
@@ -214,8 +242,13 @@ export class Step2Component {
   changeBg(color) {
     let that = this
     this.canvas.getObjects().forEach(function(o) {
-      if(o.id === "bg") {
-        o.set("fill", "#"+color);
+      if(o.id.includes("bgZone")) {
+        var filter = new fabric.Image.filters.BlendColor({
+          color: '#' + color,
+          mode: 'multiply'
+        });
+        o.filters.splice(0, 1, filter);
+        o.applyFilters();
         that.canvas.renderAll();
       }
     })
@@ -223,11 +256,9 @@ export class Step2Component {
 
   loadJson(src) {
     if (this.switch === "shoes") {
-      console.log('this.listSide[src].json', this.listSide[src].json)
       this.canvas.loadFromJSON(this.listSide[src].json);  
     }
     if (this.switch === "zones") {
-      console.log('this.listZones[src].json', this.listZones[src].json)
       this.canvas.loadFromJSON(this.listZones[src].json);  
     }
     this.canvas.renderAll();
@@ -265,36 +296,103 @@ export class Step2Component {
   }
   exportToSvg() {
     var exportSvg = this.canvas.toSVG();
-    var exportData = this.canvas.toDataURL()
-    console.log('exportData', exportData)
-    var json_data = JSON.stringify(this.canvas.toObject(['price', 'id', 'selectable'])); 
+    var exportB64 = this.canvas.toDataURL()
+    // this.canvas.toDataURL();
+    var json_data = JSON.stringify(this.canvas.toObject(['price', 'id', 'selectable']));
+    console.log('json_data', json_data)
     if (this.switch === "shoes") {
       this.listSide[this.sideNumber].svg = exportSvg
       this.listSide[this.sideNumber].json = json_data
+      this.listSide[this.sideNumber].b64 = exportB64
     }
     if (this.switch === "zones") {
       this.listZones[this.sideNumber].svg = exportSvg
       this.listZones[this.sideNumber].json = json_data
+      this.listZones[this.sideNumber].b64 = exportB64
     }
+  }
+  getByName(name) {
+      /**
+   * Item name is unique
+   */
+  // fabric.Canvas.prototype.getItemByName = function(name) {
+      var object = null,
+          objects = fabric.Canvas.prototype.getObjects();
+
+      for (var i = 0, len = fabric.Canvas.prototype.size(); i < len; i++) {
+        if (objects[i].name && objects[i].name === name) {
+          object = objects[i];
+          break;
+        }
+      }
+
+      return object;
+    // };
+  }
+  // use modal images
+  addB64Zone() {
+    let oImg
+    let that = this
+    // console.log('this.canvas.getObjects()', this.canvas.getObjects())
+
+    for (let index = 0; index < this.listZones.length; index++) {
+      this.canvas.forEachObject(function(o) {
+        console.log('oe', o)
+        console.log('index', index)
+        fabric.Image.fromURL(that.listZones[index].b64, (img) => {
+          // img.scaleToWidth(300);
+          switch (index) {
+            case 0:
+              var oImg = img.set({ left: 301.71,  top: 56.47, width: 550, height: 280, scaleX: 0.49, scaleY: 0.49, selectable: true, id: "bgZone" + index});
+              break;
+            case 1:
+              var oImg = img.set({ left: 11.22,  top: 102.18, width: 550, height: 280, scaleX: 0.48, scaleY: 0.48, selectable: true, id: "bgZone" + index});
+              break;
+            case 2:
+              var oImg = img.set({ left: 264.06,  top: 62.13, width: 550, height: 280, scaleX: 0.47, scaleY: 0.47, selectable: true, id: "bgZone" + index});
+              break;
+            case 3:
+              var oImg = img.set({ left: 185.61,  top: 75.86, width: 550, height: 280, scaleX: 0.46, scaleY: 0.46, selectable: true, id: "bgZone" + index});
+              break;
+          
+            default:
+              break;
+          }
+          that.canvas.add(oImg);
+          that.canvas.renderAll();
+        });
+          if(o.id === "bgZone" + index) {
+            console.log('isExist')
+            // o.set({src: that.listZones[index].b64})
+            o.setSrc(that.listZones[index].b64);
+            that.canvas.renderAll();
+          } else {
+            console.log('nop')
+          }
+      })
+    }
+    let objects = that.canvas.getObjects()[1]; //return Array<objects>
+    console.log('okok', objects)
+  
   }
   // use modal images
   addStockImg(e) {
     fabric.Image.fromURL(e.img, (img) => {
-      img.scaleToWidth(300);
+      img.scaleToWidth(100);
       var oImg = img.set({
-        left: 0,
-        top: 0,
+        left: 225,
+        top: 140,
         angle: 0,
         id: e.item.id,
         price: e.item.price,
         flipX: false,
         flipY: false,
       });
-      // oImg.crossOrigin = "Anonymous";
       oImg.globalCompositeOperation = 'source-atop';
-      this.canvas.add(oImg).renderAll();
+      this.canvas.add(oImg)
+      this.canvas.renderAll();
       this.totalPrice += oImg.price
-    }, {crossOrigin: 'Anonymous'});
+    }, null,{crossOrigin: 'Anonymous'});
   }
   blur(event) {
     this.canvas.getActiveObject().set("text", event.srcElement.innerText);
@@ -313,6 +411,12 @@ export class Step2Component {
           top: 0, 
           angle: 0,
           price: 8,
+          // selectable but not moveable
+          // hasBorders: false,
+          // hasControls: false,
+          // hasRotatingPoint: false,
+          // lockMovementX: true,
+          // lockMovementY: true,
           flipX: false,
           flipY: false,
         })
@@ -420,6 +524,12 @@ export class Step2Component {
       (callback) => {
         this.side = null
         this.displayJson(0)
+        callback()
+      },
+      (callback) => {
+        if (zone === "shoes") {
+          this.addB64Zone()
+        }
         callback()
       },
     ], (error) => {

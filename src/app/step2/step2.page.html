@@ -37,6 +37,9 @@
     <div class="container-canvas">
       <canvas id="c" width="550" height="280" style="z-index: 1;">
       </canvas>
+      <div class="bg-zone">
+        <img [class]="'bg-image' + listZones[sideNumber].name" *ngIf="switch === 'zones'" src="./assets/shoes/af1/out.png"  alt="">
+      </div>
       <div class="list-side" *ngIf="switch === 'shoes'">
         <div *ngFor="let side of listSide; let i = index" class="item">
           <img [src]="side.img" (click)="changeSide(i)" alt="">
@@ -44,7 +47,7 @@
       </div>
       <div class="list-side" *ngIf="switch === 'zones'">
         <div *ngFor="let side of listZones; let i = index" class="item zone">
-          <img [src]="side.imgZone" (click)="changeSide(i)" alt="">
+          <img [src]="side.imgZone" (click)="changeSide(i);" alt="">
         </div>
       </div>
     </div>
