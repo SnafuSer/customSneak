@@ -8,7 +8,7 @@ import { AssetsLibService } from '../../services/assetsLib.service'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AppComponent } from '../app.component'
 import * as async from "async";
-import { BADNAME } from 'dns';
+// import { BADNAME } from 'dns';
 
 export interface SideShoes {
   img: string;
