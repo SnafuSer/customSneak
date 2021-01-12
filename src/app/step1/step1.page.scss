@@ -46,10 +46,16 @@ h2 {
     }
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 550px){
 
     .container-shoes {
         flex-direction: column;
-        padding: 8px;
+        // padding: 8px;
+    }
+    .item-shoes {
+        padding: 24px 0;
+    }
+    .button {
+        margin-right: 16px;
     }
   }

@@ -17,8 +17,11 @@ export class ModalLibDialog {
   public currentCat: any;
 
   ngOnInit() {
-    this.currentCat = "photo"
-    this.getCurrentCategory("photo")
+    if (window.innerWidth < 768) {
+    } else {
+      this.currentCat = "photo"
+      this.getCurrentCategory("photo")
+    }
   }
   changeImgSrc(src) {
     this.currentCat = src

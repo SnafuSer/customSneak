@@ -35,7 +35,9 @@ export class Step2Component {
     private dialog: MatDialog,
     private assetsLib: AssetsLibService,
     public sanitizer: DomSanitizer,
-    public appComponent: AppComponent,) {}
+    public appComponent: AppComponent,) {
+      this.scalePages(window.innerWidth)
+    }
     
   public activeColor: string;  
   public activeObject: any;
@@ -141,6 +143,25 @@ export class Step2Component {
     this.init()
   }
   public jsonZone
+
+  public basePage = {
+    width: 550,
+    height: 280,
+    scale: 1,
+    scaleX: 1,
+    scaleY: 1
+  };
+  public scaleXY
+
+  scalePages(maxWidth) {
+    if (maxWidth < 550) {
+      let scaleX = 1                  
+      scaleX = maxWidth / this.basePage.width;
+      this.scaleXY = 'scale(' +scaleX+ ')';
+    } else {
+      this.scaleXY = 'scale(1)'
+    }      
+  }
   ngAfterViewInit() {
     this.canvas.on('selection:created', (e) => {
       this.onObjectSelected()
@@ -151,11 +172,16 @@ export class Step2Component {
     this.canvas.on('selection:updated', (e) => {
       this.onObjectUpdated()
     });
+
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
     this.loading = false
     if(event.data.pay)this.receiveMessage(event);
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.scalePages(window.innerWidth)
   }
   receiveMessage(event) {
     // this.respond()
@@ -173,6 +199,7 @@ export class Step2Component {
   }
   init() {
     this.displayJson(0)
+
   }
   changeSide(src) {
     async.waterfall([
@@ -585,14 +612,21 @@ export class Step2Component {
     });
   }
   openModalLib() {
-
+    let maxWidth, height, top
+    if (window.innerWidth < 768) {
+      maxWidth = "100vw"
+      top = "0"
+      height = "100vh"
+    } else {
+      maxWidth = "70vw"
+      top = "70px"
+      height = "auto"
+    }
     const dialogRef = this.dialog.open(ModalLibDialog, {
-      maxWidth: '70vw',
-      data: {
-        // item: item, 
-      },
+      maxWidth: maxWidth,
+      height: height,
       position: {
-        top: '70px',
+        top: top,
       }
     });
 
@@ -602,7 +636,7 @@ export class Step2Component {
 
   }
   openModalNike() {
-
+    
     const dialogRef = this.dialog.open(ModalNikeDialog, {
       width: '100%',
       height: '100%',
