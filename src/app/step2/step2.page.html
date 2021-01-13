@@ -113,10 +113,10 @@
         <div class="style-panel">
           <span>Style</span>
           <div id="img-controls-additional">
-            <div (click)="bringForward()">En avant </div>
-            <div (click)="bringBackward()"> En arriere</div>
-            <!-- <div (click)="flipX()">Flip X</div>
-            <div (click)="flipY()">Flip Y</div> -->
+            <!-- <div (click)="bringForward()">En avant </div>
+            <div (click)="bringBackward()"> En arriere</div> -->
+            <div class="img-controller" (click)="flipX()"><img src="./assets/icons/left.svg" alt=""></div>
+            <div class="img-controller" (click)="flipY()"><img src="./assets/icons/flip.svg" alt=""></div>
           </div>
         </div>
         <div id="color-controls">

@@ -14,20 +14,25 @@ export class ModalLibDialog {
     @Inject(MAT_DIALOG_DATA) public data) {
   }
 
-  public currentCat: any;
+  public currentCat: string = "";
+  public assets: Array<any>;
+  public isMobile: boolean = false;
+  public catActive: boolean = false;
 
   ngOnInit() {
     if (window.innerWidth < 768) {
+      this.isMobile = true
     } else {
-      this.currentCat = "photo"
-      this.getCurrentCategory("photo")
+      this.currentCat = "food"
+      this.getCurrentCategory("food")
     }
   }
   changeImgSrc(src) {
     this.currentCat = src
   }
   getCurrentCategory(src) {
-    this.currentCat = this.assetsLib.getByCategory(src)
+    this.currentCat = src
+    this.assets = this.assetsLib.getByCategory(src)
   }
   // use modal images
   addStockImg(e, item) {

@@ -97,7 +97,7 @@
     .multi {
       position: absolute;
       width: 25px;
-      top: 25px;
+      top: 70px;
       margin-left: 25px;
     }
   }
@@ -130,7 +130,9 @@
       font-size: 12px
     }
   }
-
+  .multi-indicator {
+    position: relative;
+  }
   @media only screen and (max-width: 768px){
 
     .container-modal {
@@ -138,5 +140,20 @@
     }
     ::ng-deep.mat-dialog-container {
       width: 100vw;
+    }
+    .item-modal {
+      display: flex;
+    }
+    .assets {
+      padding: 0;
+      img {
+        height: auto;
+        width: 50%;
+        margin: auto 0 ;
+      }
+      .multi {
+        top: 5px;
+        margin-left: 5px;
+      }
     }
   }

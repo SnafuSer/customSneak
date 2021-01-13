@@ -361,45 +361,43 @@ export class Step2Component {
     let oImg
     let that = this
     // console.log('this.canvas.getObjects()', this.canvas.getObjects())
-
-    for (let index = 0; index < this.listZones.length; index++) {
-      this.canvas.forEachObject(function(o) {
-        console.log('oe', o)
-        console.log('index', index)
-        fabric.Image.fromURL(that.listZones[index].b64, (img) => {
-          // img.scaleToWidth(300);
-          switch (index) {
-            case 0:
-              var oImg = img.set({ left: 301.71,  top: 56.47, width: 550, height: 280, scaleX: 0.49, scaleY: 0.49, selectable: true, id: "bgZone" + index});
-              break;
-            case 1:
-              var oImg = img.set({ left: 11.22,  top: 102.18, width: 550, height: 280, scaleX: 0.48, scaleY: 0.48, selectable: true, id: "bgZone" + index});
-              break;
-            case 2:
-              var oImg = img.set({ left: 264.06,  top: 62.13, width: 550, height: 280, scaleX: 0.47, scaleY: 0.47, selectable: true, id: "bgZone" + index});
-              break;
-            case 3:
-              var oImg = img.set({ left: 185.61,  top: 75.86, width: 550, height: 280, scaleX: 0.46, scaleY: 0.46, selectable: true, id: "bgZone" + index});
-              break;
+    console.log('this.listSide[0].json', this.listSide[0].json)
+    // for (let index = 0; index < this.listZones.length; index++) {
+    //   this.canvas.forEachObject(function(o) {
+    //     console.log('oe', o)
+    //     console.log('index', index)
+    //     fabric.Image.fromURL(that.listZones[index].b64, (img) => {
+    //       // img.scaleToWidth(300);
+    //       switch (index) {
+    //         case 0:
+    //           var oImg = img.set({ left: 301.71,  top: 56.47, width: 550, height: 280, scaleX: 0.49, scaleY: 0.49, selectable: true, id: "bgZone" + index});
+    //           break;
+    //         case 1:
+    //           var oImg = img.set({ left: 11.22,  top: 102.18, width: 550, height: 280, scaleX: 0.48, scaleY: 0.48, selectable: true, id: "bgZone" + index});
+    //           break;
+    //         case 2:
+    //           var oImg = img.set({ left: 264.06,  top: 62.13, width: 550, height: 280, scaleX: 0.47, scaleY: 0.47, selectable: true, id: "bgZone" + index});
+    //           break;
+    //         case 3:
+    //           var oImg = img.set({ left: 185.61,  top: 75.86, width: 550, height: 280, scaleX: 0.46, scaleY: 0.46, selectable: true, id: "bgZone" + index});
+    //           break;
           
-            default:
-              break;
-          }
-          that.canvas.add(oImg);
-          that.canvas.renderAll();
-        });
-          if(o.id === "bgZone" + index) {
-            console.log('isExist')
-            // o.set({src: that.listZones[index].b64})
-            o.setSrc(that.listZones[index].b64);
-            that.canvas.renderAll();
-          } else {
-            console.log('nop')
-          }
-      })
-    }
-    let objects = that.canvas.getObjects()[1]; //return Array<objects>
-    console.log('okok', objects)
+    //         default:
+    //           break;
+    //       }
+    //       that.canvas.add(oImg);
+    //       that.canvas.renderAll();
+    //     });
+    //       if(o.id === "bgZone" + index) {
+    //         console.log('isExist')
+    //         // o.set({src: that.listZones[index].b64})
+    //         o.setSrc(that.listZones[index].b64);
+    //         that.canvas.renderAll();
+    //       } else {
+    //         console.log('nop')
+    //       }
+    //   })
+    // }
   
   }
   // use modal images
@@ -579,17 +577,17 @@ export class Step2Component {
   }
   flipX() {
     let el = this.canvas.getActiveObject()
-    this.canvas.set("flipX", !this.canvas.getActiveObject().flipX)
+    el.set("flipX", !el.flipX)
     setTimeout(() => {
       this.canvas.renderAll(); 
-    }, 150);
+    }, 15);
   }
   flipY() {
     let el = this.canvas.getActiveObject()
-    this.canvas.set("flipY", !this.canvas.getActiveObject().flipY)
+    el.set("flipY", !el.flipY)
     setTimeout(() => {
       this.canvas.renderAll(); 
-    }, 150);
+    }, 15);
   }
   changeColor(color) {
     var elements = document.getElementsByClassName("color-item")
@@ -635,33 +633,22 @@ export class Step2Component {
     });
 
   }
-  openModalNike() {
-    
-    const dialogRef = this.dialog.open(ModalNikeDialog, {
-      width: '100%',
-      height: '100%',
-      data: {
-        // item: item, 
-      },
-      position: {
-        top: '70px',
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.addStockImg(result)
-    });
-
-  }
   openModalImport() {
-
+    let maxWidth, height, top
+    if (window.innerWidth < 768) {
+      maxWidth = "100vw"
+      top = "0"
+      height = "100vh"
+    } else {
+      maxWidth = "70vw"
+      top = "70px"
+      height = "auto"
+    } 
     const dialogRef = this.dialog.open(ModalImportDialog, {
-      maxWidth: '70vw',
-      data: {
-        // item: item, 
-      },
+      maxWidth: maxWidth,
+      height: height,
       position: {
-        top: '70px',
+        top: top,
       }
     });
 

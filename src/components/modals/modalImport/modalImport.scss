@@ -165,3 +165,27 @@
       visibility: visible
     }
   }
+  @media only screen and (max-width: 768px){
+
+    .container-modal {
+        flex-direction: column; 
+    }
+    ::ng-deep.mat-dialog-container {
+      width: 100vw;
+    }
+    .item-modal {
+      display: flex;
+    }
+    .assets {
+      padding: 0;
+      img {
+        height: auto;
+        width: 50%;
+        margin: auto 0 ;
+      }
+      .multi {
+        top: 5px;
+        margin-left: 5px;
+      }
+    }
+  }

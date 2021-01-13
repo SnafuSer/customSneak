@@ -16,156 +16,118 @@ export interface ImageVariant {
 @Injectable()
 export class AssetsLibService {
     constructor() { }
-    public lib: Image[] = [
-        {
-            img: "https://unsplash.it/400/500?random",
-            name: "Item 1",
-            category: "photo",
-            price: 4,
+    public lib: Image[] = [ 
+          {
+            img: "./assets/illustration/peperoni.png",
+            name: "Peperoni",
+            category: "food",
+            price: 5,
             id: "1",
             colors: []
           },
-         {
-            img: "https://unsplash.it/500/500?random",
-            name: "Item 2",
-            category: "photo",
-            price: 4,
+          {
+            img: "./assets/illustration/popcorn.png",
+            name: "Popcorn",
+            category: "food",
+            price: 5,
             id: "2",
             colors: []
           },
-         {
-            img: "https://unsplash.it/500/400?random",
-            name: "Item 3",
-            category: "photo",
-            price: 4,
+          {
+            img: "./assets/illustration/waleFront.png",
+            name: "Baleine",
+            category: "girly",
+            price: 5,
             id: "3",
             colors: []
           },
-         {
-            img: "https://unsplash.it/500/300?random",
-            name: "Item 4",
-            category: "photo",
-            price: 3,
+          {
+            img: "./assets/illustration/waleback.png",
+            name: "Baleine",
+            category: "girly",
+            price: 5,
             id: "4",
             colors: []
-          },  
+          },
           {
-            img: "https://drawinghowtos.com/wp-content/uploads/2019/11/unicorn-colored.png",
-            name: "Licorne",
-            category: "girly",
+            img: "./assets/illustration/cherry.png",
+            name: "Cerises",
+            category: "food",
             price: 5,
             id: "5",
             colors: []
           },
+          {
+            img: "./assets/illustration/roses.png",
+            name: "Roses",
+            category: "girly",
+            price: 5,
+            id: "6",
+            colors: []
+          },
          {
-            img: "./assets/illustration/butterflyBlue.png",
+            img: "./assets/illustration/papBlue.png",
             name: "Papillon",
             category: "girly",
             price: 2,
-            id: "6",
+            id: "7",
             colors: [
               {
-                img: "./assets/illustration/butterflyBlue.png",
+                img: "./assets/illustration/papBlue.png",
                 color: "00BFFF",
               },
               {
-                img: "./assets/illustration/butterflyBw.jpg",
-                color: "000000",
+                img: "./assets/illustration/papGreen.png",
+                color: "35D24D",
               },
               {
-                img: "./assets/illustration/butterflyYellow.png",
-                color: "FFD700",
+                img: "./assets/illustration/papOrange.png",
+                color: "E78D00",
+              },
+              {
+                img: "./assets/illustration/papRed.png",
+                color: "E71D0A",
+              },
+              {
+                img: "./assets/illustration/papPink.png",
+                color: "FD4B8E",
               }
             ]
           },
          {
-            img: "./assets/illustration/shoes.png",
-            name: "shoes",
-            category: "girly",
-            price: 5,
-            id: "22",
-            colors: []
-          },
-         {
-            img: "./assets/illustration/empeigne.svg",
-            name: "empeigne",
-            category: "girly",
-            price: 5,
-            id: "23",
-            colors: []
-          },
-         {
-            img: "./assets/illustration/pointe.svg",
-            name: "pointe",
-            category: "girly",
-            price: 5,
-            id: "24",
-            colors: []
-          },
-         {
-            img: "./assets/illustration/swoosh.svg",
-            name: "swoosh",
-            category: "girly",
-            price: 5,
-            id: "25",
-            colors: []
-          },
-         {
-            img: "./assets/illustration/trim.svg",
-            name: "trim",
-            category: "girly",
-            price: 5,
-            id: "26",
-            colors: []
-          },
-         {
-            img: "./assets/illustration/bande.svg",
-            name: "bande",
-            category: "girly",
-            price: 5,
-            id: "27",
-            colors: []
-          },
-         {
-            img: "https://dbdzm869oupei.cloudfront.net/img/sticker/preview/12597.png",
+            img: "./assets/illustration/sakuraPink.png",
             name: "Fleur de cerisier",
             category: "girly",
             price: 5,
-            id: "7",
-            colors: []
-          },
-          {
-            img: "https://isometric.online/wp-content/uploads/2020/05/people_svg.svg",
-            name: "People",
-            category: "illu",
-            price: 5,
             id: "8",
-            colors: []
+            colors: [
+              {
+                img: "./assets/illustration/sakuraBlue.png",
+                color: "00BFFF",
+              },
+              {
+                img: "./assets/illustration/sakuraPink.png",
+                color: "FD4B8E",
+              }
+            ]
           },
          {
-            img: "https://isometric.online/wp-content/uploads/2020/04/fitness_svg.svg",
-            name: "Fitness",
-            category: "illu",
-            price: 4,
-            id: "9",
-            colors: []
-          },
-         {
-            img: "https://isometric.online/wp-content/uploads/2020/04/instagram_svg.svg",
-            name: "Instagram",
-            category: "illu",
+            img: "./assets/illustration/donutPink.png",
+            name: "Donuts",
+            category: "food",
             price: 5,
-            id: "10",
-            colors: []
+            id: "9",
+            colors: [
+              {
+                img: "./assets/illustration/donutPink.png",
+                color: "FD4B8E",
+              },
+              {
+                img: "./assets/illustration/donutGreen.png",
+                color: "35D24D",
+              }
+            ]
           },
-         {
-            img: "https://isometric.online/wp-content/uploads/2020/04/tv_svg.svg",
-            name: "Télévision",
-            category: "illu",
-            price: 3,
-            id: "11",
-            colors: []
-          }
     ];
     
     public getByCategory(category) {
