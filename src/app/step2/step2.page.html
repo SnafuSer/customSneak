@@ -94,12 +94,7 @@
             <label class="text-control" for="text-cmd-underline">
               <span style="text-decoration:underline">U</span>
             </label>
-            <select id="font-family" (change)="changeFont($event.target.value)">
-              <option value="arial">Arial</option>
-              <option value="helvetica">Helvetica</option>
-              <option value="comic sans ms">Comic Sans MS</option>
-              <option value="anton" selected>Anton</option>
-            </select>
+            <div id="font-picker" (click)="changeFont($event.target.value)"></div>
           </div>
         </div>
         <div id="color-controls">

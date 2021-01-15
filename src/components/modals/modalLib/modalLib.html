@@ -15,6 +15,12 @@
         <div class="category-item" (click)="getCurrentCategory('girly')">
           <span>Girly</span>
         </div>
+        <div class="category-item" (click)="getCurrentCategory('pattern')">
+          <span>Pattern</span>
+        </div>
+        <div class="category-item" (click)="getCurrentCategory('abstract')">
+          <span>Abstrait</span>
+        </div>
       </div>
       <div class="content" *ngIf="(isMobile && currentCat !== '') || !isMobile">
         <ul class="assets" id="list">

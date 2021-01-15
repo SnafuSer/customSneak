@@ -83,6 +83,25 @@
         height: 20px;
     }
 }
+#font-picker {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    box-shadow:none;
+    margin: auto 8px;
+    ::ng-deep .dropdown-button {
+        background: #FFF !important;
+        border: 1px solid #171717;
+    }
+    ::ng-deep ul {
+        background: #F7F7F7 !important;
+    }
+}
+div[id^=font-picker] .dropdown-button {
+    background: #FFF !important;
+    border: 1px solid #F7F7F7;
+
+}
 .container-canvas {
     display: flex;
     flex-direction: column;

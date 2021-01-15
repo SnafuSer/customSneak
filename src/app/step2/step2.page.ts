@@ -8,6 +8,8 @@ import { AssetsLibService } from '../../services/assetsLib.service'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AppComponent } from '../app.component'
 import * as async from "async";
+import FontPicker from "font-picker";
+
 // import { BADNAME } from 'dns';
 
 export interface SideShoes {
@@ -61,6 +63,7 @@ export class Step2Component {
   public choice: any = this.appComponent.choice
   // public choice: any = {type: "af1"}
 
+  public fontPicker
   ngOnInit() {
     this.canvas = new fabric.Canvas('c',);
     this.canvas.preserveObjectStacking = false;
@@ -172,7 +175,6 @@ export class Step2Component {
     this.canvas.on('selection:updated', (e) => {
       this.onObjectUpdated()
     });
-
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
@@ -503,7 +505,9 @@ export class Step2Component {
     this.canvas.renderAll()
   }
   changeFont(event) {
-    this.canvas.getActiveObject().set("fontFamily", event);
+    console.log('e', this.fontPicker.getActiveFont().family)
+    
+    this.canvas.getActiveObject().set("fontFamily", this.fontPicker.getActiveFont().family);
     this.canvas.renderAll();
   }
   displayBackgroundChoice() {
@@ -522,6 +526,13 @@ export class Step2Component {
         else { this.isBold = false }
         if (obj.fontStyle === 'italic') { this.isItalic = true }
         else { this.isItalic = false }
+        setTimeout(() => {
+          this.fontPicker = new FontPicker(
+            "AIzaSyAB_8iUhpGP-7Iagd-pT00dzjAF2Zy1SV8", // Google API key
+            obj.fontFamily || "Open Sans", // Default font
+            { categories: ["handwriting"], limit: 250 }, // Additional options
+          );
+        }, 50);
         break;
       case 'image':
         this.imgDisplay = true

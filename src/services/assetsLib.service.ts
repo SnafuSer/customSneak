@@ -128,6 +128,88 @@ export class AssetsLibService {
               }
             ]
           },
+         {
+            img: "./assets/illustration/blueAbstract1.png",
+            name: "Abstrait 1",
+            category: "abstract",
+            price: 5,
+            id: "10",
+            colors: [
+              {
+                img: "./assets/illustration/blueAbstract1.png",
+                color: "00BFFF",
+              },
+              {
+                img: "./assets/illustration/greenAbstract1.png",
+                color: "35D24D",
+              },
+              {
+                img: "./assets/illustration/orangeAbstract1.png",
+                color: "E78D00",
+              },
+              {
+                img: "./assets/illustration/redAbstract1.png",
+                color: "E71D0A",
+              },
+              {
+                img: "./assets/illustration/pinkAbstract1.png",
+                color: "FD4B8E",
+              },
+              // {
+              //   img: "./assets/illustration/blackAbstract1.png",
+              //   color: "000000",
+              // }
+            ]
+          },
+         {
+            img: "./assets/illustration/blackSplash.png",
+            name: "Splash",
+            category: "abstract",
+            price: 5,
+            id: "11",
+            colors: [
+              {
+                img: "./assets/illustration/blueSplash.png",
+                color: "00BFFF",
+              },
+              {
+                img: "./assets/illustration/greenSplash.png",
+                color: "35D24D",
+              },
+              {
+                img: "./assets/illustration/orangeSplash.png",
+                color: "E78D00",
+              },
+              {
+                img: "./assets/illustration/redSplash.png",
+                color: "E71D0A",
+              },
+              {
+                img: "./assets/illustration/pinkSplash.png",
+                color: "FD4B8E",
+              },
+              {
+                img: "./assets/illustration/blackSplash.png",
+                color: "000000",
+              }
+            ]
+          },
+          {
+            img: "./assets/illustration/liberty1.png",
+            name: "Liberty 1",
+            category: "pattern",
+            price: 5,
+            id: "12",
+            colors: []
+          },
+          {
+            img: "./assets/illustration/dalmatien.png",
+            name: "Dalmatien",
+            category: "pattern",
+            price: 5,
+            id: "13",
+            colors: []
+          },
     ];
     
     public getByCategory(category) {
