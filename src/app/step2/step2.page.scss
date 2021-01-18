@@ -39,6 +39,26 @@
     flex-direction: row;
     padding: 16px;
 }
+.swoosh-zone {
+    position: absolute;
+    width: 550px;
+    height: 280px;
+    overflow: hidden;
+    z-index: 99;
+    user-select: none;
+}
+.swoosh-imagebande {
+    width: 514px;
+    position: relative;
+    top: 71px;
+    left: -71px;
+}
+.swoosh-imagetrim {
+    width: 571px;
+    position: relative;
+    top: 29px;
+    left: 168px;
+}
 .bg-zone {
     position: absolute;
     width: 550px;
@@ -55,9 +75,9 @@
 .bg-imagepointe {
     position: relative;
     height: auto;
-    width: 1144px;
+    width: 1117px;
     left: -19px;
-    top: -181px;
+    top: -173px;
 }
 .bg-imageswoosh {
     position: relative;

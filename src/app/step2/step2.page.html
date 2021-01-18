@@ -36,10 +36,14 @@
         <img src="./assets/icons/arrow.svg" (click)="changeSide(sideNumber-1)" alt="">
       </div>
       <div class="container-canvas" [ngStyle]="{'transform' : scaleXY}">
+
         <canvas id="c" width="550" height="280" style="z-index: 1;">
         </canvas>
         <div class="bg-zone">
           <img [class]="'bg-image' + listZones[sideNumber].name" *ngIf="switch === 'zones'" src="./assets/shoes/af1/out.png"  alt="">
+        </div>
+        <div class="swoosh-zone" *ngIf="(switch === 'zones' && sideNumber === 0) || (switch === 'zones' && sideNumber === 2)">
+          <img [class]="'swoosh-image' + listZones[sideNumber].name"  src="/assets/zones/af1/svg/swoosh.png"  alt="">
         </div>
         <div class="list-side" *ngIf="switch === 'shoes'">
           <div *ngFor="let side of listSide; let i = index" class="item">
