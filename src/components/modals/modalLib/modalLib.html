@@ -3,18 +3,15 @@
       <h2>Selectionner un design</h2>
       <div class="close" (click)="closeDialog()">&times;</div>
     </div>
-    <div class="search-bar">
+    <form class="search-bar" (ngSubmit)="search(searchText)" #heroForm="ngForm">
       <input type="text" class="input-search" name="search" id="" [(ngModel)]="searchText">
-      <div class="button-cart" (click)="search(searchText)">
+      <div class="button-cart" type="submit">
           Rechercher
       </div>
-    </div>
+    </form>
     <div class="container-modal">
       <h4 *ngIf="(isMobile && currentCat !== '')" (click)="currentCat = ''"><- Retour</h4>
       <div class="category-list" *ngIf="(isMobile && currentCat === '') || !isMobile">
-        <!-- <div class="category-item" (click)="getCurrentCategory('photo')">
-          <span>Images</span>
-        </div> -->
         <div class="category-item" (click)="getCurrentCategory('food')">
           <span>Food</span>
         </div>

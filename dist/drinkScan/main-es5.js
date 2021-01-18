@@ -85,7 +85,7 @@ module.exports = "<div class=\"popup\">\n  <div class=\"header-container\">\n   
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"popup\">\n    <div class=\"header-container\">\n      <h2>Selectionner un design</h2>\n      <div class=\"close\" (click)=\"closeDialog()\">&times;</div>\n    </div>\n    <div class=\"search-bar\">\n      <input type=\"text\" class=\"input-search\" name=\"search\" id=\"\" [(ngModel)]=\"searchText\">\n      <div class=\"button-cart\" (click)=\"search(searchText)\">\n          Rechercher\n      </div>\n    </div>\n    <div class=\"container-modal\">\n      <h4 *ngIf=\"(isMobile && currentCat !== '')\" (click)=\"currentCat = ''\"><- Retour</h4>\n      <div class=\"category-list\" *ngIf=\"(isMobile && currentCat === '') || !isMobile\">\n        <!-- <div class=\"category-item\" (click)=\"getCurrentCategory('photo')\">\n          <span>Images</span>\n        </div> -->\n        <div class=\"category-item\" (click)=\"getCurrentCategory('food')\">\n          <span>Food</span>\n        </div>\n        <div class=\"category-item\" (click)=\"getCurrentCategory('girly')\">\n          <span>Girly</span>\n        </div>\n        <div class=\"category-item\" (click)=\"getCurrentCategory('pattern')\">\n          <span>Pattern</span>\n        </div>\n        <div class=\"category-item\" (click)=\"getCurrentCategory('abstrait')\">\n          <span>Abstrait</span>\n        </div>\n      </div>\n      <div class=\"content\" *ngIf=\"(isMobile && currentCat !== '') || !isMobile\">\n        <ul class=\"assets\" id=\"list\">\n            <li class=\"item-modal\" *ngFor=\"let item of images\">\n              <div *ngIf=\"item.context?.custom.colors && item.context?.custom.display === 'true'; else elseBlock\">\n                <div class=\"multi-indicator\" *ngIf=\"item.context?.custom.colors\">\n                  <img class=\"multi\" src=\"./assets/icons/color-wheel.svg\" alt=\"\">\n                </div>\n                  <!-- <img *ngFor=\"let item of images\" > -->\n                  <img class=\"img-stock\" [src]=\"'https://res.cloudinary.com/deck4daxl/image/upload/'+item.public_id+'.png'\" (click)=\"addStockImg($event, item)\" alt=\"image asset\" width=\"400\" height=\"500\"/>\n                  <div class=\"infos-item\">\n                      <!-- <span class=\"name\">{{ item.name }}</span>\n                      <span class=\"price\">{{ item.price }}€</span> -->\n                  </div>\n              </div>\n              <ng-template #elseBlock>\n                <div *ngIf=\"!item.context?.custom.colors\">\n                    <!-- <img *ngFor=\"let item of images\" > -->\n                    <img class=\"img-stock\" [src]=\"'https://res.cloudinary.com/deck4daxl/image/upload/'+item.public_id+'.png'\" (click)=\"addStockImg($event, item)\" alt=\"image asset\" width=\"400\" height=\"500\"/>\n                    <div class=\"infos-item\">\n                        <!-- <span class=\"name\">{{ item.name }}</span>\n                        <span class=\"price\">{{ item.price }}€</span> -->\n                    </div>\n                </div>\n              </ng-template>\n            </li>\n        </ul>\n      </div>\n    </div>\n</div>"
+module.exports = "<div class=\"popup\">\n    <div class=\"header-container\">\n      <h2>Selectionner un design</h2>\n      <div class=\"close\" (click)=\"closeDialog()\">&times;</div>\n    </div>\n    <form class=\"search-bar\" (ngSubmit)=\"search(searchText)\" #heroForm=\"ngForm\">\n      <input type=\"text\" class=\"input-search\" name=\"search\" id=\"\" [(ngModel)]=\"searchText\">\n      <div class=\"button-cart\" type=\"submit\">\n          Rechercher\n      </div>\n    </form>\n    <div class=\"container-modal\">\n      <h4 *ngIf=\"(isMobile && currentCat !== '')\" (click)=\"currentCat = ''\"><- Retour</h4>\n      <div class=\"category-list\" *ngIf=\"(isMobile && currentCat === '') || !isMobile\">\n        <div class=\"category-item\" (click)=\"getCurrentCategory('food')\">\n          <span>Food</span>\n        </div>\n        <div class=\"category-item\" (click)=\"getCurrentCategory('girly')\">\n          <span>Girly</span>\n        </div>\n        <div class=\"category-item\" (click)=\"getCurrentCategory('pattern')\">\n          <span>Pattern</span>\n        </div>\n        <div class=\"category-item\" (click)=\"getCurrentCategory('abstrait')\">\n          <span>Abstrait</span>\n        </div>\n      </div>\n      <div class=\"content\" *ngIf=\"(isMobile && currentCat !== '') || !isMobile\">\n        <ul class=\"assets\" id=\"list\">\n            <li class=\"item-modal\" *ngFor=\"let item of images\">\n              <div *ngIf=\"item.context?.custom.colors && item.context?.custom.display === 'true'; else elseBlock\">\n                <div class=\"multi-indicator\" *ngIf=\"item.context?.custom.colors\">\n                  <img class=\"multi\" src=\"./assets/icons/color-wheel.svg\" alt=\"\">\n                </div>\n                  <!-- <img *ngFor=\"let item of images\" > -->\n                  <img class=\"img-stock\" [src]=\"'https://res.cloudinary.com/deck4daxl/image/upload/'+item.public_id+'.png'\" (click)=\"addStockImg($event, item)\" alt=\"image asset\" width=\"400\" height=\"500\"/>\n                  <div class=\"infos-item\">\n                      <!-- <span class=\"name\">{{ item.name }}</span>\n                      <span class=\"price\">{{ item.price }}€</span> -->\n                  </div>\n              </div>\n              <ng-template #elseBlock>\n                <div *ngIf=\"!item.context?.custom.colors\">\n                    <!-- <img *ngFor=\"let item of images\" > -->\n                    <img class=\"img-stock\" [src]=\"'https://res.cloudinary.com/deck4daxl/image/upload/'+item.public_id+'.png'\" (click)=\"addStockImg($event, item)\" alt=\"image asset\" width=\"400\" height=\"500\"/>\n                    <div class=\"infos-item\">\n                        <!-- <span class=\"name\">{{ item.name }}</span>\n                        <span class=\"price\">{{ item.price }}€</span> -->\n                    </div>\n                </div>\n              </ng-template>\n            </li>\n        </ul>\n      </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -614,14 +614,6 @@ var Step2Component = /** @class */ (function () {
                     b64: ""
                 }
             ];
-            this.jsonZone = {
-                "version": "4.2.0", "objects": [
-                    { "type": "image", "version": "4.2.0", "originX": "left", "originY": "top", "left": 12.4, "top": 120.79, "width": 550, "height": 194, "fill": "rgb(0,0,0)", "stroke": null, "strokeWidth": 0, "strokeDashArray": null, "strokeLineCap": "butt", "strokeDashOffset": 0, "strokeLineJoin": "miter", "strokeMiterLimit": 4, "scaleX": 0.49, "scaleY": 0.49, "angle": 0, "flipX": false, "flipY": false, "opacity": 1, "shadow": null, "visible": true, "backgroundColor": "", "fillRule": "nonzero", "paintFirst": "fill", "globalCompositeOperation": "source-atop", "skewX": 0, "skewY": 0, "cropX": 0, "cropY": 0, "id": "pointe", "selectable": false, "src": "http://localhost:4000/assets/illustration/pointe.svg", "crossOrigin": null, "filters": [] },
-                    { "type": "image", "version": "4.2.0", "originX": "left", "originY": "top", "left": 221.64, "top": 76.15, "width": 394, "height": 280, "fill": "rgb(0,0,0)", "stroke": null, "strokeWidth": 0, "strokeDashArray": null, "strokeLineCap": "butt", "strokeDashOffset": 0, "strokeLineJoin": "miter", "strokeMiterLimit": 4, "scaleX": 0.47, "scaleY": 0.47, "angle": 0, "flipX": false, "flipY": false, "opacity": 1, "shadow": null, "visible": true, "backgroundColor": "", "fillRule": "nonzero", "paintFirst": "fill", "globalCompositeOperation": "source-atop", "skewX": 0, "skewY": 0, "cropX": 0, "cropY": 0, "id": "trim", "selectable": false, "src": "http://localhost:4000/assets/illustration/trim.svg", "crossOrigin": null, "filters": [] },
-                    { "type": "image", "version": "4.2.0", "originX": "left", "originY": "top", "left": 324.41, "top": 56.44, "width": 447, "height": 281, "fill": "rgb(0,0,0)", "stroke": null, "strokeWidth": 0, "strokeDashArray": null, "strokeLineCap": "butt", "strokeDashOffset": 0, "strokeLineJoin": "miter", "strokeMiterLimit": 4, "scaleX": 0.49, "scaleY": 0.49, "angle": 0, "flipX": false, "flipY": false, "opacity": 1, "shadow": null, "visible": true, "backgroundColor": "", "fillRule": "nonzero", "paintFirst": "fill", "globalCompositeOperation": "source-atop", "skewX": 0, "skewY": 0, "cropX": 0, "cropY": 0, "id": "bande", "selectable": false, "src": "http://localhost:4000/assets/illustration/bande.svg", "crossOrigin": null, "filters": [] },
-                    { "type": "image", "version": "4.2.0", "originX": "left", "originY": "top", "left": 243.21, "top": 90, "width": 550, "height": 159, "fill": "rgb(0,0,0)", "stroke": null, "strokeWidth": 0, "strokeDashArray": null, "strokeLineCap": "butt", "strokeDashOffset": 0, "strokeLineJoin": "miter", "strokeMiterLimit": 4, "scaleX": 0.5, "scaleY": 0.5, "angle": 0, "flipX": false, "flipY": false, "opacity": 1, "shadow": null, "visible": true, "backgroundColor": "", "fillRule": "nonzero", "paintFirst": "fill", "globalCompositeOperation": "source-atop", "skewX": 0, "skewY": 0, "cropX": 0, "cropY": 0, "id": "swoosh", "selectable": false, "src": "http://localhost:4000/assets/illustration/swoosh.svg", "crossOrigin": null, "filters": [] }
-                ]
-            };
         }
         this.init();
     };
@@ -1117,20 +1109,23 @@ var Step2Component = /** @class */ (function () {
     };
     Step2Component.prototype.openModalLib = function () {
         var _this = this;
-        var maxWidth, height, top;
+        var maxWidth, height, top, width;
         if (window.innerWidth < 768) {
             maxWidth = "100vw";
             top = "0";
+            width = "auto";
             height = "100vh";
         }
         else {
             maxWidth = "70vw";
+            width = "70vw";
             top = "70px";
             height = "auto";
         }
         var dialogRef = this.dialog.open(_components_modals_modalLib_modalLib__WEBPACK_IMPORTED_MODULE_3__["ModalLibDialog"], {
             maxWidth: maxWidth,
             height: height,
+            width: width,
             position: {
                 top: top,
             }
@@ -1456,18 +1451,16 @@ var ModalLibDialog = /** @class */ (function () {
         this.currentCat = src;
     };
     ModalLibDialog.prototype.getCurrentCategory = function (src) {
-        this.currentCat = src;
         this.searchText = '';
         this.getCloudinary(src);
     };
     ModalLibDialog.prototype.search = function (searchText) {
-        console.log('e', this.searchText);
         this.getCloudinary(searchText);
     };
     ModalLibDialog.prototype.getCloudinary = function (src) {
         var _this = this;
         this.assetsLib.getCloudinary(src).subscribe(function (response) {
-            console.log('response', response.resources);
+            _this.currentCat = src;
             _this.images = response.resources;
         }, function (error) { return console.log('error', error); });
     };

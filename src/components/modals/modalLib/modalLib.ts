@@ -35,18 +35,16 @@ export class ModalLibDialog {
     this.currentCat = src
   }
   getCurrentCategory(src) {
-    this.currentCat = src
     this.searchText = ''
     this.getCloudinary(src)
   }  
   search(searchText) {
-    console.log('e', this.searchText)
     this.getCloudinary(searchText)
   }
   getCloudinary(src) {
     this.assetsLib.getCloudinary(src).subscribe(
       (response) => {
-        console.log('response', response.resources)
+        this.currentCat = src
         this.images = response.resources
       },
       (error) => { return console.log('error', error)});

@@ -163,16 +163,9 @@ export class Step2Component {
           b64: ""
         }
       ]
-      this.jsonZone = {
-        "version":"4.2.0","objects":[
-        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":12.4,"top":120.79,"width":550,"height":194,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.49,"scaleY":0.49,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"pointe","selectable":false,"src":"http://localhost:4000/assets/illustration/pointe.svg","crossOrigin":null,"filters":[]},
-        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":221.64,"top":76.15,"width":394,"height":280,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.47,"scaleY":0.47,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"trim","selectable":false,"src":"http://localhost:4000/assets/illustration/trim.svg","crossOrigin":null,"filters":[]},
-        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":324.41,"top":56.44,"width":447,"height":281,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.49,"scaleY":0.49,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"bande","selectable":false,"src":"http://localhost:4000/assets/illustration/bande.svg","crossOrigin":null,"filters":[]},
-        {"type":"image","version":"4.2.0","originX":"left","originY":"top","left":243.21,"top":90,"width":550,"height":159,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeMiterLimit":4,"scaleX":0.5,"scaleY":0.5,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-atop","skewX":0,"skewY":0,"cropX":0,"cropY":0,"id":"swoosh","selectable":false,"src":"http://localhost:4000/assets/illustration/swoosh.svg","crossOrigin":null,"filters":[]}]}
     }
     this.init()
   }
-  public jsonZone
 
   public basePage = {
     width: 550,
@@ -655,19 +648,22 @@ export class Step2Component {
     },{crossOrigin:'annonymous'});
   }
   openModalLib() {
-    let maxWidth, height, top
+    let maxWidth, height, top, width
     if (window.innerWidth < 768) {
       maxWidth = "100vw"
       top = "0"
+      width = "auto"
       height = "100vh"
     } else {
       maxWidth = "70vw"
+      width = "70vw"
       top = "70px"
       height = "auto"
     }
     const dialogRef = this.dialog.open(ModalLibDialog, {
       maxWidth: maxWidth,
       height: height,
+      width: width,
       position: {
         top: top,
       }
