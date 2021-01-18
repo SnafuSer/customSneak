@@ -133,6 +133,46 @@
   .multi-indicator {
     position: relative;
   }
+  .input-search {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #171717;
+    border: 0px;
+    border-bottom: 1px solid #171717;
+    margin: auto 8px auto auto;
+    width: 50%;
+    position: relative;
+    &:focus {
+      outline: -webkit-focus-ring-color auto 0px;
+      outline-color: -webkit-focus-ring-color;
+      outline-style: auto;
+      outline-width: 0px;
+      border-bottom: 3px solid #171717;
+    }
+    &:hover {
+      border-bottom: 3px solid #171717;
+    }
+  }
+  .search-bar {
+    display: flex;
+    position: relative;
+    height: 40px;
+    margin-top: 8px;
+  }
+  .button-cart {
+    background-color:  #171717;
+    padding: 8px 32px;
+    color: white;
+    margin: auto auto auto 8px;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        cursor: auto;
+    }
+  }
   @media only screen and (max-width: 768px){
 
     .container-modal {

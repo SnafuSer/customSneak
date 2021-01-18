@@ -114,10 +114,10 @@
             <div class="img-controller" (click)="flipY()"><img src="./assets/icons/flip.svg" alt=""></div>
           </div>
         </div>
-        <div id="color-controls">
+        <div id="color-controls" *ngIf="activeObject?.color">
           <span>Couleur</span>
           <div id="color-list">
-            <div *ngFor="let item of imgLib?.colors" class="color-item" [ngClass]="{active: activeObject.color === item.color}" [ngStyle]="{'background-color': '#'+item.color}" (click)="changeColorImg(item)"></div>
+            <div *ngFor="let item of imgColors" class="color-item" [ngClass]="{active: activeObject.color === item.color}" [ngStyle]="{'background-color': '#'+item.color}" (click)="changeColorImg(item)"></div>
           </div>
         </div>
       </div>

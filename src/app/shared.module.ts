@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
 
 // ***** Material *****
 import {
@@ -67,9 +69,11 @@ import { InlineSVGModule } from 'ng-inline-svg';
     MatSelectModule,
     MatGridListModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'deck4daxl'}),
   ],
   providers: [
+    CloudinaryModule
   ],
   bootstrap: [],
   entryComponents: [],

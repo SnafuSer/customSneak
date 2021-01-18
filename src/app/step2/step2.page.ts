@@ -2,13 +2,13 @@ import { Component, HostListener } from '@angular/core';
 import { fabric } from 'fabric';
 import { ModalLibDialog } from "../../components/modals/modalLib/modalLib";
 import { ModalImportDialog } from "../../components/modals/modalImport/modalImport";
-import { ModalNikeDialog } from "../../components/modals/modalNike/modalNike";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AssetsLibService } from '../../services/assetsLib.service'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AppComponent } from '../app.component'
 import * as async from "async";
 import FontPicker from "font-picker";
+import { Cloudinary } from '@cloudinary/angular-5.x'; 
 
 // import { BADNAME } from 'dns';
 
@@ -37,6 +37,7 @@ export class Step2Component {
     private dialog: MatDialog,
     private assetsLib: AssetsLibService,
     public sanitizer: DomSanitizer,
+    public cloudinary: Cloudinary,
     public appComponent: AppComponent,) {
       this.scalePages(window.innerWidth)
     }
@@ -46,6 +47,32 @@ export class Step2Component {
   public canvas: any;  
   public colorDisplay = false
   public colorList = ["131313", "FFFFFF", "192F97", "D41C3B", "FF9090", "A92355", "E35110"]
+  public imgColors = [
+    {
+      name: "black",
+      color: "000000"
+    },
+    {
+      name: "red",
+      color: "E71D0A"
+    },
+    {
+      name: "orange",
+      color: "E78D00"
+    },
+    {
+      name: "pink",
+      color: "FD4B8E"
+    },
+    {
+      name: "green",
+      color: "35D24D"
+    },
+    {
+      name: "blue",
+      color: "00BFFF"
+    },
+  ]
   public generalDisplay = false
   public imgDisplay = false
   public backgroundColorDisplay = false
@@ -328,7 +355,7 @@ export class Step2Component {
     var exportB64 = this.canvas.toDataURL()
     // this.canvas.toDataURL();
     var json_data = JSON.stringify(this.canvas.toObject(['price', 'id', 'selectable']));
-    console.log('json_data', json_data)
+    // console.log('json_data', json_data)
     if (this.switch === "shoes") {
       this.listSide[this.sideNumber].svg = exportSvg
       this.listSide[this.sideNumber].json = json_data
@@ -363,7 +390,7 @@ export class Step2Component {
     let oImg
     let that = this
     // console.log('this.canvas.getObjects()', this.canvas.getObjects())
-    console.log('this.listSide[0].json', this.listSide[0].json)
+    // console.log('this.listSide[0].json', this.listSide[0].json)
     // for (let index = 0; index < this.listZones.length; index++) {
     //   this.canvas.forEachObject(function(o) {
     //     console.log('oe', o)
@@ -404,22 +431,30 @@ export class Step2Component {
   }
   // use modal images
   addStockImg(e) {
+    // console.log('e', e)
+    let color = null
     fabric.Image.fromURL(e.img, (img) => {
       img.scaleToWidth(100);
+      if (e.item.context) color = e.item.context.custom.colors
       var oImg = img.set({
         left: 225,
         top: 140,
         angle: 0,
-        id: e.item.id,
+        id: e.item.public_id,
+        color: color,
         price: e.item.price,
         flipX: false,
         flipY: false,
+        borderColor: "#171717",
+        cornerColor: "#171717",
+        cornerSize: 6,
       });
+      // oImg.crossOrigin = 'use-credentials';
       oImg.globalCompositeOperation = 'source-atop';
       this.canvas.add(oImg)
       this.canvas.renderAll();
       this.totalPrice += oImg.price
-    }, null,{crossOrigin: 'Anonymous'});
+    }, {crossOrigin: 'anonymous'});
   }
   blur(event) {
     this.canvas.getActiveObject().set("text", event.srcElement.innerText);
@@ -459,10 +494,8 @@ export class Step2Component {
     // check if type is a property of active element
     this.objType = (this.canvas.getActiveObject().type ? this.canvas.getActiveObject().type : "");
     this.activeObject = this.canvas.getActiveObject()
+    // console.log('activeObject', this.activeObject)
     this.switchDisplay(this.objType)
-  }
-  getImgById(id) {
-    this.imgLib = this.assetsLib.getById(id)
   }
   onObjectCleared() {
     this.clear()
@@ -505,7 +538,7 @@ export class Step2Component {
     this.canvas.renderAll()
   }
   changeFont(event) {
-    console.log('e', this.fontPicker.getActiveFont().family)
+    // console.log('e', this.fontPicker.getActiveFont().family)
     
     this.canvas.getActiveObject().set("fontFamily", this.fontPicker.getActiveFont().family);
     this.canvas.renderAll();
@@ -536,7 +569,6 @@ export class Step2Component {
         break;
       case 'image':
         this.imgDisplay = true
-        this.getImgById(this.activeObject.id)
         break;
       case 'rect':
         this.imgDisplay = true
@@ -612,13 +644,15 @@ export class Step2Component {
   }
   changeColorImg(color) {
     let oImg
-    this.canvas.getActiveObject().setSrc(color.img, (img) => {
-      img.scaleToWidth(300);
+    let split = this.canvas.getActiveObject().id.split('/')
+    split[split.length - 1] = color.name
+    split = split.join('/')
+    this.canvas.getActiveObject().setSrc('https://res.cloudinary.com/deck4daxl/image/upload/' + split, (img) => {
       oImg = img.set({
         color: color.color
       })
       this.canvas.renderAll();
-    });
+    },{crossOrigin:'annonymous'});
   }
   openModalLib() {
     let maxWidth, height, top

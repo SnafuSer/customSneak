@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { BlankDialog } from './blankModal/blank';
 import { ModalImportDialog } from './modalImport/modalImport';
 import { ModalLibDialog } from './modalLib/modalLib';
-import { ModalNikeDialog } from './modalNike/modalNike';
 
 import { SharedModule } from "../../app/shared.module";
 
@@ -15,7 +14,6 @@ import { SharedModule } from "../../app/shared.module";
     BlankDialog,
     ModalImportDialog,
     ModalLibDialog,
-    ModalNikeDialog,
   ],
   imports: [
     CommonModule,
@@ -29,13 +27,11 @@ import { SharedModule } from "../../app/shared.module";
     BlankDialog,
     ModalImportDialog,
     ModalLibDialog,
-    ModalNikeDialog,
   ],
   exports: [
     BlankDialog,
     ModalImportDialog,
     ModalLibDialog,
-    ModalNikeDialog,
   ]
 })
 export class ModalModule { }

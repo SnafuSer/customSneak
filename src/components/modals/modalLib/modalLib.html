@@ -3,6 +3,12 @@
       <h2>Selectionner un design</h2>
       <div class="close" (click)="closeDialog()">&times;</div>
     </div>
+    <div class="search-bar">
+      <input type="text" class="input-search" name="search" id="" [(ngModel)]="searchText">
+      <div class="button-cart" (click)="search(searchText)">
+          Rechercher
+      </div>
+    </div>
     <div class="container-modal">
       <h4 *ngIf="(isMobile && currentCat !== '')" (click)="currentCat = ''"><- Retour</h4>
       <div class="category-list" *ngIf="(isMobile && currentCat === '') || !isMobile">
@@ -18,21 +24,34 @@
         <div class="category-item" (click)="getCurrentCategory('pattern')">
           <span>Pattern</span>
         </div>
-        <div class="category-item" (click)="getCurrentCategory('abstract')">
+        <div class="category-item" (click)="getCurrentCategory('abstrait')">
           <span>Abstrait</span>
         </div>
       </div>
       <div class="content" *ngIf="(isMobile && currentCat !== '') || !isMobile">
         <ul class="assets" id="list">
-            <li class="item-modal" *ngFor="let item of assets">
-              <div class="multi-indicator" *ngIf="item.colors.length > 0">
-                <img class="multi" src="./assets/icons/color-wheel.svg" alt="">
-              </div>
-                <img class="img-stock" [src]="item.img" (click)="addStockImg($event, item)" alt="image asset" width="400" height="500"/>
-                <div class="infos-item">
-                    <span class="name">{{ item.name }}</span>
-                    <span class="price">{{ item.price }}€</span>
+            <li class="item-modal" *ngFor="let item of images">
+              <div *ngIf="item.context?.custom.colors && item.context?.custom.display === 'true'; else elseBlock">
+                <div class="multi-indicator" *ngIf="item.context?.custom.colors">
+                  <img class="multi" src="./assets/icons/color-wheel.svg" alt="">
                 </div>
+                  <!-- <img *ngFor="let item of images" > -->
+                  <img class="img-stock" [src]="'https://res.cloudinary.com/deck4daxl/image/upload/'+item.public_id+'.png'" (click)="addStockImg($event, item)" alt="image asset" width="400" height="500"/>
+                  <div class="infos-item">
+                      <!-- <span class="name">{{ item.name }}</span>
+                      <span class="price">{{ item.price }}€</span> -->
+                  </div>
+              </div>
+              <ng-template #elseBlock>
+                <div *ngIf="!item.context?.custom.colors">
+                    <!-- <img *ngFor="let item of images" > -->
+                    <img class="img-stock" [src]="'https://res.cloudinary.com/deck4daxl/image/upload/'+item.public_id+'.png'" (click)="addStockImg($event, item)" alt="image asset" width="400" height="500"/>
+                    <div class="infos-item">
+                        <!-- <span class="name">{{ item.name }}</span>
+                        <span class="price">{{ item.price }}€</span> -->
+                    </div>
+                </div>
+              </ng-template>
             </li>
         </ul>
       </div>
