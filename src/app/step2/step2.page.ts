@@ -656,7 +656,7 @@ export class Step2Component {
       height = "100vh"
     } else {
       maxWidth = "70vw"
-      width = "70vw"
+      width = "900px"
       top = "70px"
       height = "auto"
     }
