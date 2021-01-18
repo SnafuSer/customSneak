@@ -1118,7 +1118,7 @@ var Step2Component = /** @class */ (function () {
         }
         else {
             maxWidth = "70vw";
-            width = "70vw";
+            width = "900px";
             top = "70px";
             height = "auto";
         }

@@ -1094,7 +1094,7 @@ let Step2Component = class Step2Component {
         }
         else {
             maxWidth = "70vw";
-            width = "70vw";
+            width = "900px";
             top = "70px";
             height = "auto";
         }
