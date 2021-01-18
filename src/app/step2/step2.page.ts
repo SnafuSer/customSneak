@@ -382,7 +382,6 @@ export class Step2Component {
     var exportB64 = this.canvas.toDataURL()
     // this.canvas.toDataURL();
     var json_data = JSON.stringify(this.canvas.toObject(['price', 'id', 'selectable']));
-    console.log('json_data', json_data)
     if (this.switch === "shoes") {
       this.listSide[this.sideNumber].svg = exportSvg
       this.listSide[this.sideNumber].json = json_data
