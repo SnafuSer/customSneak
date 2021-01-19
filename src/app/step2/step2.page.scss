@@ -39,7 +39,7 @@
     flex-direction: row;
     padding: 16px;
 }
-.swoosh-zone {
+.preview-zone {
     position: absolute;
     width: 550px;
     height: 280px;
@@ -47,18 +47,69 @@
     z-index: 99;
     user-select: none;
     pointer-events: none;
+    &.preview-swoosh {
+        z-index: initial;
+    }
+}
+.trim-imagebande {
+    width: 520px;
+    position: absolute;
+    top: 43px;
+    left: -234px;
+}
+.trim-imagepointe {
+    width: 509px;
+    position: absolute;
+    top: -46px;
+    left: 362px;
+}
+.trim-imageswoosh {
+    width: 543px;
+    position: absolute;
+    top: 29px;
+    left: -166px;
+}
+.pointe-imagetrim {
+    width: 595px;
+    position: absolute;
+    top: 50px;
+    left: -390px;
+}
+.pointe-imageswoosh {
+    width: 583px;
+    position: absolute;
+    top: 72px;
+    left: -551px;
+}
+.bande-imagetrim {
+    width: 583px;
+    position: absolute;
+    top: -43px;
+    left: 249px;
+}
+.bande-imageswoosh {
+    width: 583px;
+    position: absolute;
+    top: -18px;
+    left: 77px;
 }
 .swoosh-imagebande {
     width: 514px;
-    position: relative;
-    top: 71px;
-    left: -71px;
+    position: absolute;
+    top: 15px;
+    left: -70px;
+}
+.swoosh-imagepointe {
+    width: 514px;
+    position: absolute;
+    top: -69px;
+    left: 517px;
 }
 .swoosh-imagetrim {
-    width: 571px;
-    position: relative;
-    top: 29px;
-    left: 168px;
+    width: 552px;
+    position: absolute;
+    top: -28px;
+    left: 169px;
 }
 .bg-zone {
     position: absolute;

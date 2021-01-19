@@ -42,8 +42,11 @@
         <div class="bg-zone">
           <img [class]="'bg-image' + listZones[sideNumber].name" *ngIf="switch === 'zones'" src="./assets/shoes/af1/out.png"  alt="">
         </div>
-        <div class="swoosh-zone" *ngIf="(switch === 'zones' && sideNumber === 0) || (switch === 'zones' && sideNumber === 2)">
-          <img [class]="'swoosh-image' + listZones[sideNumber].name"  src="/assets/zones/af1/svg/swoosh.png"  alt="">
+        <div [class]="'preview-zone preview-' + listZones[sideNumber].name" *ngIf="switch === 'zones'">
+          <img [class]="'pointe-image' + listZones[sideNumber].name"  [src]="listZones[1].b64" *ngIf="sideNumber === 2 || sideNumber === 3" alt="">
+          <img [class]="'trim-image' + listZones[sideNumber].name"  [src]="listZones[2].b64" *ngIf="sideNumber === 0 || sideNumber === 1 || sideNumber === 3" alt="">
+          <img [class]="'bande-image' + listZones[sideNumber].name"  [src]="listZones[0].b64" *ngIf="sideNumber === 2 || sideNumber === 3" alt="">
+          <img [class]="'swoosh-image' + listZones[sideNumber].name"  [src]="listZones[3].b64" *ngIf="sideNumber === 0 || sideNumber === 1 || sideNumber === 2"  alt="">
         </div>
         <div class="list-side" *ngIf="switch === 'shoes'">
           <div *ngFor="let side of listSide; let i = index" class="item">
