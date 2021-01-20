@@ -87,6 +87,7 @@ export class Step2Component {
   public sideNumber: number = 0;
   public totalPrice: number = 0;
   public loading: boolean = false
+  public loadingText: string
   public choice: any = this.appComponent.choice
   // public choice: any = {type: "af1"}
 
@@ -210,18 +211,28 @@ export class Step2Component {
     this.scalePages(window.innerWidth)
   }
   receiveMessage(event) {
-    // this.respond()
+    this.respond()
   }
   respond() {
+    this.loadingText = 'Création du design en cours'
     this.loading = true
     this.exportToSvg()
     setTimeout(() => {
+      let svg = this.listSide
+      let zones = this.listZones
+      svg.forEach(side => {
+        side.b64 = ''
+      });
+      zones.forEach(zone => {
+        zone.b64 = ''
+      });
       var data = {
-        svg: this.listSide,
+        svg: svg,
+        zones: zones,
         price: this.totalPrice
       }
       window.parent.postMessage(data, "*");
-    }, 50);
+    }, 150);
   }
   init() {
     this.displayJson(0)
@@ -266,7 +277,6 @@ export class Step2Component {
           });
           if(src === 0) {
             for (let index = 0; index < this.listZones.length; index++) {
-                console.log('index', index)
                 fabric.Image.fromURL(that.listZones[index].b64, (img) => {
                   // img.scaleToWidth(300);
                   switch (index) {
@@ -415,67 +425,30 @@ export class Step2Component {
   addB64Zone() {
     let oImg
     let that = this
+    this.loadingText = "Ajout des zones au design"
+    this.loading = true
     setTimeout(() => {
       
-      console.log('this.canvas.getObjects()', this.canvas.getObjects())
-      this.canvas.getObjects().map(function(o) {
-        console.log('o', o)
-      });
       for (let index = 0; index < this.listZones.length; index++) {
-        // this.canvas.forEachObject(function(o) {
-          // console.log('oe', o)
-          // console.log('this.canvas.getObjects()', this.canvas.getObjects())
-          this.canvas.getObjects().forEach(function(o) {
-              if(o.id == "bgZone" + index) {
-                console.log("okok", o)
-                  that.canvas.setActiveObject(o);
-                  console.log(o.id)
-                  that.canvas.getActiveObject().setSrc(that.listZones[index].b64, (img) => {
-                    that.canvas.renderAll();
-                  },{crossOrigin:'annonymous'});
-              }
-              
-          })
-          // fabric.Image.fromURL(that.listZones[index].b64, (img) => {
-          //   // img.scaleToWidth(300);
-          //   // switch (index) {
-          //   //   case 0:
-          //   //     var oImg = img.set({ left: 301.71,  top: 56.47, width: 550, height: 280, scaleX: 0.49, scaleY: 0.49, selectable: true, id: "bgZone" + index});
-          //   //     break;
-          //   //   case 1:
-          //   //     var oImg = img.set({ left: 11.22,  top: 102.18, width: 550, height: 280, scaleX: 0.48, scaleY: 0.48, selectable: true, id: "bgZone" + index});
-          //   //     break;
-          //   //   case 2:
-          //   //     var oImg = img.set({ left: 264.06,  top: 62.13, width: 550, height: 280, scaleX: 0.47, scaleY: 0.47, selectable: true, id: "bgZone" + index});
-          //   //     break;
-          //   //   case 3:
-          //   //     var oImg = img.set({ left: 185.61,  top: 75.86, width: 550, height: 280, scaleX: 0.46, scaleY: 0.46, selectable: true, id: "bgZone" + index});
-          //   //     break;
-            
-          //   //   default:
-          //   //     break;
-          //   // }
-          //   that.canvas.add(oImg);
-          //   that.canvas.renderAll();
-          // });
-            // if(o.id === "bgZone" + index) {
-            //   console.log('isExist')
-            //   // o.set({src: that.listZones[index].b64})
-            //   o.setSrc(that.listZones[index].b64);
-            //   that.canvas.renderAll();
-            // } else {
-            //   console.log('nop')
-            // }
-        // })
+        this.canvas.getObjects().forEach(function(o) {
+          if(o.id == "bgZone" + index) {
+            that.canvas.setActiveObject(o);
+            that.canvas.getActiveObject().setSrc(that.listZones[index].b64, (img) => {
+              that.canvas.renderAll();
+            },{crossOrigin:'annonymous'});
+          }
+          
+        })
       }
+      
       this.canvas.discardActiveObject().renderAll();
-
-    }, 15);
-  
+      this.canvas.renderAll();
+      this.loading = false
+    }, 350);
+    
   }
   // use modal images
   addStockImg(e) {
-    // console.log('e', e)
     let color = null
     fabric.Image.fromURL(e.img, (img) => {
       img.scaleToWidth(100);
@@ -541,7 +514,6 @@ export class Step2Component {
     // check if type is a property of active element
     this.objType = (this.canvas.getActiveObject().type ? this.canvas.getActiveObject().type : "");
     this.activeObject = this.canvas.getActiveObject()
-    // console.log('activeObject', this.activeObject)
     this.switchDisplay(this.objType)
   }
   onObjectCleared() {
@@ -584,9 +556,7 @@ export class Step2Component {
     else this.canvas.getActiveObject().set("fontStyle", "");
     this.canvas.renderAll()
   }
-  changeFont(event) {
-    // console.log('e', this.fontPicker.getActiveFont().family)
-    
+  changeFont(event) {    
     this.canvas.getActiveObject().set("fontFamily", this.fontPicker.getActiveFont().family);
     this.canvas.renderAll();
   }
@@ -612,7 +582,7 @@ export class Step2Component {
             obj.fontFamily || "Open Sans", // Default font
             { categories: ["handwriting"], limit: 250 }, // Additional options
           );
-        }, 50);
+        }, 100);
         break;
       case 'image':
         this.imgDisplay = true
