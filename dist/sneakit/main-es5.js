@@ -676,7 +676,8 @@ var Step2Component = /** @class */ (function () {
         window.parent.postMessage(data, "*");
     };
     Step2Component.prototype.addItem = function (data) {
-        console.log('data ', data);
+        console.log('data_id', data._id);
+        console.log('data.type', data.type);
         var newItem = [{
                 side: this.listSide,
                 zones: this.listZones,

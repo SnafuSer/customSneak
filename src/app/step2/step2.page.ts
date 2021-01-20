@@ -232,7 +232,8 @@ export class Step2Component {
     window.parent.postMessage(data, "*");
   }
   addItem(data): void {
-    console.log('data ', data)
+    console.log('data_id', data._id)
+    console.log('data.type', data.type)
       let newItem = [{
         side: this.listSide, 
         zones: this.listZones,
