@@ -4,7 +4,7 @@
   },
   "hosting": [
     {
-      "public": "dist/drinkScan",
+      "public": "dist/sneakit",
       "ignore": [
         "firebase.json",
         "**/.*",
@@ -13,7 +13,7 @@
     },
     {
       "target": "sneakit-1502",
-      "public": "dist/drinkScan",
+      "public": "dist/sneakit",
       "ignore": [
         "firebase.json",
         "**/.*",
