@@ -2,15 +2,7 @@
   "database": {
     "rules": "database.rules.json"
   },
-  "hosting": [
-    {
-      "public": "dist/sneakit",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ]
-    },
+  "hosting":
     {
       "target": "sneakit-1502",
       "public": "dist/sneakit",
@@ -26,5 +18,4 @@
         }
       ]
     }
-  ]
 }
