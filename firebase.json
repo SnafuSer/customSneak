@@ -12,7 +12,7 @@
       ]
     },
     {
-      "target": "drinkScan",
+      "target": "sneakit-1502",
       "public": "dist/drinkScan",
       "ignore": [
         "firebase.json",
