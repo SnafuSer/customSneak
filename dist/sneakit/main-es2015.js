@@ -669,8 +669,8 @@ let Step2Component = class Step2Component {
         let newItem = [{
                 side: this.listSide,
                 zones: this.listZones,
-                idWix: data._id,
-                idType: data.type,
+                idWix: data.data._id,
+                idType: data.data.type,
             }];
         this.item.push(newItem);
     }

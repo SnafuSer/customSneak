@@ -681,8 +681,8 @@ var Step2Component = /** @class */ (function () {
         var newItem = [{
                 side: this.listSide,
                 zones: this.listZones,
-                idWix: data._id,
-                idType: data.type,
+                idWix: data.data._id,
+                idType: data.data.type,
             }];
         this.item.push(newItem);
     };
