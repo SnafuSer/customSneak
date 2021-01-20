@@ -9,6 +9,8 @@ import { AppComponent } from '../app.component'
 import * as async from "async";
 import FontPicker from "font-picker";
 import { Cloudinary } from '@cloudinary/angular-5.x'; 
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+// import {  } from '@angular/fire/';
 
 // import { BADNAME } from 'dns';
 
@@ -33,15 +35,19 @@ export interface Zones {
   styleUrls: ['./step2.page.scss']
 })
 export class Step2Component {
+  public item: AngularFireList<any>;
+
   constructor(
     private dialog: MatDialog,
     private assetsLib: AssetsLibService,
     public sanitizer: DomSanitizer,
     public cloudinary: Cloudinary,
-    public appComponent: AppComponent,) {
+    public appComponent: AppComponent,
+    db: AngularFireDatabase,) {
       this.scalePages(window.innerWidth)
+      this.item = db.list('/item');
     }
-    
+
   public activeColor: string;  
   public activeObject: any;
   public canvas: any;  
@@ -203,6 +209,8 @@ export class Step2Component {
   }
   @HostListener('window:message', ['$event'])
   onMessage(event) {
+    console.log('catch message ', event)
+    this.addItem(event)
     this.loading = false
     if(event.data.pay)this.receiveMessage(event);
   }
@@ -214,25 +222,23 @@ export class Step2Component {
     this.respond()
   }
   respond() {
+    console.log('send message')
     this.loadingText = 'Création du design en cours'
     this.loading = true
     this.exportToSvg()
-    setTimeout(() => {
-      let svg = this.listSide
-      let zones = this.listZones
-      svg.forEach(side => {
-        side.b64 = ''
-      });
-      zones.forEach(zone => {
-        zone.b64 = ''
-      });
-      var data = {
-        svg: svg,
-        zones: zones,
-        price: this.totalPrice
-      }
-      window.parent.postMessage(data, "*");
-    }, 150);
+    var data = {
+      type: this.choice.type,
+    }
+    window.parent.postMessage(data, "*");
+  }
+  addItem(data): void {
+    console.log('data ', data)
+      let newItem = [{
+        side: this.listSide, 
+        zones: this.listZones,
+        data: data
+      }]
+      this.item.push(newItem);
   }
   init() {
     this.displayJson(0)

@@ -275,8 +275,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cloudinary_angular_5_x__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @cloudinary/angular-5.x */ "./node_modules/@cloudinary/angular-5.x/fesm5/cloudinary-angular-5.x.js");
 /* harmony import */ var cloudinary_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cloudinary-core */ "./node_modules/cloudinary-core/cloudinary-core.js");
 /* harmony import */ var cloudinary_core__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(cloudinary_core__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var ng_inline_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng-inline-svg */ "./node_modules/ng-inline-svg/lib_esmodule/index.js");
+/* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/index.js");
+/* harmony import */ var _angular_fire_database__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/fire/database */ "./node_modules/@angular/fire/database/index.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ng_inline_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ng-inline-svg */ "./node_modules/ng-inline-svg/lib_esmodule/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../environments/environment */ "./src/environments/environment.ts");
 // ####################################################################
 // ######################## Externals #################################
 // ####################################################################
@@ -288,9 +291,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 // ***** Material *****
 
 // ***** other *****
+
 
 // ####################################################################
 // ######################## Internal #################################
@@ -304,58 +310,62 @@ var SharedModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [],
             imports: [
+                _angular_fire__WEBPACK_IMPORTED_MODULE_7__["AngularFireModule"].initializeApp(_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].firebaseConfig),
+                _angular_fire_database__WEBPACK_IMPORTED_MODULE_8__["AngularFireDatabaseModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                ng_inline_svg__WEBPACK_IMPORTED_MODULE_8__["InlineSVGModule"].forRoot(),
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatProgressSpinnerModule"],
+                ng_inline_svg__WEBPACK_IMPORTED_MODULE_10__["InlineSVGModule"].forRoot(),
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatProgressSpinnerModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatIconModule"],
                 _cloudinary_angular_5_x__WEBPACK_IMPORTED_MODULE_5__["CloudinaryModule"].forRoot(cloudinary_core__WEBPACK_IMPORTED_MODULE_6__, { cloud_name: 'deck4daxl' }),
             ],
             providers: [
-                _cloudinary_angular_5_x__WEBPACK_IMPORTED_MODULE_5__["CloudinaryModule"]
+                _cloudinary_angular_5_x__WEBPACK_IMPORTED_MODULE_5__["CloudinaryModule"],
             ],
             bootstrap: [],
             entryComponents: [],
             exports: [
+                _angular_fire__WEBPACK_IMPORTED_MODULE_7__["AngularFireModule"],
+                _angular_fire_database__WEBPACK_IMPORTED_MODULE_8__["AngularFireDatabaseModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                ng_inline_svg__WEBPACK_IMPORTED_MODULE_8__["InlineSVGModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatCheckboxModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatTableModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatPaginatorModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSortModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatExpansionModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatMenuModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatAutocompleteModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatTooltipModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatProgressSpinnerModule"],
+                ng_inline_svg__WEBPACK_IMPORTED_MODULE_10__["InlineSVGModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatMenuModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatAutocompleteModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatProgressSpinnerModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSidenavModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSelectModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatIconModule"]
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSidenavModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_9__["MatIconModule"]
             ]
         })
     ], SharedModule);
@@ -475,6 +485,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var async__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(async__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var font_picker__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! font-picker */ "./node_modules/font-picker/dist/FontPicker.es.js");
 /* harmony import */ var _cloudinary_angular_5_x__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @cloudinary/angular-5.x */ "./node_modules/@cloudinary/angular-5.x/fesm5/cloudinary-angular-5.x.js");
+/* harmony import */ var _angular_fire_database__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/fire/database */ "./node_modules/@angular/fire/database/index.js");
+
 
 
 
@@ -488,7 +500,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Step2Component = /** @class */ (function () {
-    function Step2Component(dialog, assetsLib, sanitizer, cloudinary, appComponent) {
+    function Step2Component(dialog, assetsLib, sanitizer, cloudinary, appComponent, db) {
         this.dialog = dialog;
         this.assetsLib = assetsLib;
         this.sanitizer = sanitizer;
@@ -541,6 +553,7 @@ var Step2Component = /** @class */ (function () {
             scaleY: 1
         };
         this.scalePages(window.innerWidth);
+        this.item = db.list('/item');
     }
     Step2Component.prototype.ngOnInit = function () {
         this.canvas = new fabric__WEBPACK_IMPORTED_MODULE_2__["fabric"].Canvas('c');
@@ -640,6 +653,8 @@ var Step2Component = /** @class */ (function () {
         });
     };
     Step2Component.prototype.onMessage = function (event) {
+        console.log('catch message ', event);
+        this.addItem(event);
         this.loading = false;
         if (event.data.pay)
             this.receiveMessage(event);
@@ -651,26 +666,23 @@ var Step2Component = /** @class */ (function () {
         this.respond();
     };
     Step2Component.prototype.respond = function () {
-        var _this = this;
+        console.log('send message');
         this.loadingText = 'Création du design en cours';
         this.loading = true;
         this.exportToSvg();
-        setTimeout(function () {
-            var svg = _this.listSide;
-            var zones = _this.listZones;
-            svg.forEach(function (side) {
-                side.b64 = '';
-            });
-            zones.forEach(function (zone) {
-                zone.b64 = '';
-            });
-            var data = {
-                svg: svg,
-                zones: zones,
-                price: _this.totalPrice
-            };
-            window.parent.postMessage(data, "*");
-        }, 150);
+        var data = {
+            type: this.choice.type,
+        };
+        window.parent.postMessage(data, "*");
+    };
+    Step2Component.prototype.addItem = function (data) {
+        console.log('data ', data);
+        var newItem = [{
+                side: this.listSide,
+                zones: this.listZones,
+                data: data
+            }];
+        this.item.push(newItem);
     };
     Step2Component.prototype.init = function () {
         this.displayJson(0);
@@ -1187,7 +1199,8 @@ var Step2Component = /** @class */ (function () {
         { type: _services_assetsLib_service__WEBPACK_IMPORTED_MODULE_6__["AssetsLibService"] },
         { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_7__["DomSanitizer"] },
         { type: _cloudinary_angular_5_x__WEBPACK_IMPORTED_MODULE_11__["Cloudinary"] },
-        { type: _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"] }
+        { type: _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"] },
+        { type: _angular_fire_database__WEBPACK_IMPORTED_MODULE_12__["AngularFireDatabase"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:message', ['$event'])
@@ -1536,7 +1549,17 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
-    production: false
+    production: false,
+    firebaseConfig: {
+        apiKey: "AIzaSyAB_8iUhpGP-7Iagd-pT00dzjAF2Zy1SV8",
+        authDomain: "sneakit-1502.firebaseapp.com",
+        databaseURL: "https://sneakit-1502.firebaseio.com",
+        projectId: "sneakit-1502",
+        storageBucket: "sneakit-1502.appspot.com",
+        messagingSenderId: "55239918724",
+        appId: "1:55239918724:web:a1def6aaa623047d46aed1",
+        measurementId: "G-YHR7Y9F6D6"
+    }
 };
 /*
  * For easier debugging in development mode, you can import the following file

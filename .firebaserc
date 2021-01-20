@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "sneakit-1502"
+  },
+  "targets": {
+    "sneakit-1502": {
+      "hosting": {
+        "drinkScan": [
+          "sneakit-1502"
+        ]
+      }
+    }
   }
 }

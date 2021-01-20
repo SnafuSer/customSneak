@@ -10,6 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import * as  Cloudinary from 'cloudinary-core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 // ***** Material *****
 import {
@@ -34,6 +36,7 @@ import {
 } from '@angular/material';
 // ***** other *****
 import { InlineSVGModule } from 'ng-inline-svg';
+import { environment } from '../environments/environment';
 
 // ####################################################################
 // ######################## Internal #################################
@@ -47,6 +50,8 @@ import { InlineSVGModule } from 'ng-inline-svg';
   declarations: [
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
     CommonModule,
     BrowserModule,
     HttpClientModule,
@@ -73,11 +78,13 @@ import { InlineSVGModule } from 'ng-inline-svg';
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'deck4daxl'}),
   ],
   providers: [
-    CloudinaryModule
+    CloudinaryModule,
   ],
   bootstrap: [],
   entryComponents: [],
   exports: [
+    AngularFireModule,
+    AngularFireDatabaseModule,
     HttpClientModule,
     InlineSVGModule,
     MatButtonModule,
